@@ -48,5 +48,7 @@ Thumbs.db
 *.mov
 *.wmv
 *.sqlite3
-settings_local.py
 
+# django
+settings_local.py
+apps_static
