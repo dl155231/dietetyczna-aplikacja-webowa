@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'fontawesomefree',
 
     # apps
-    'accounts.apps.AccountsConfig'
+    'accounts.apps.AccountsConfig',
+    'diet_app.apps.DietAppConfig',
 ]
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
