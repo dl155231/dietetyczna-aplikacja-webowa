@@ -1,7 +1,7 @@
 {% if messages %}
   {% for message in messages %}
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function (handleToast) {
+        $(document).on('load', () => {
             iziToast.info({
                 title: '',
                 message: "{{ message }}",
@@ -10,8 +10,6 @@
                 progressBar: false,
             });
         })
-        document.removeEventListener("DOMContentLoaded", function (handleToast) {
-        }, true);
     </script>
   {% endfor %}
 {% endif %}
