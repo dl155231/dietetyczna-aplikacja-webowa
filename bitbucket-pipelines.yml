@@ -3,14 +3,14 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: python:3.9.10-slim-buster
+image: python:3.9.10
 
 pipelines:
   default: 
     - step:
         name: Build
         script:
-          - git archive --format=tar.gz main -o sample-app.tar.gz
+          - git archive --format=tar.gz main -o psi-apka-dietetyczna.tar.gz
         artifacts:
           - sample-app.tar.gz
       
@@ -24,4 +24,4 @@ pipelines:
             variables:
               HEROKU_API_KEY: $HEROKU_API_KEY
               HEROKU_APP_NAME: $HEROKU_APP_NAME
-              ZIP_FILE: sample-app.tar.gz
+              ZIP_FILE: psi-apka-dietetyczna.tar.gz
