@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 
 {% block navbar %}
+{#  {% include 'partials/navabr_nutritionist.html' %}#}
   {% include 'partials/navbar_client.html' %}
 {% endblock navbar %}
 
@@ -15,6 +16,7 @@
           </div>
           <p style="font-size: 40px!important;">Dieta: {{ diet_name }}</p>
           <p >Dzisiejsze posiłki:</p>
+          <p>{{ meals |linebreaks }}</p>
         </div>
       </div>
     </div>

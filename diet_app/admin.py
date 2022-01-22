@@ -11,6 +11,7 @@ from diet_app.models import Product
 from diet_app.models import UserDetails
 from diet_app.models import Vitamin
 from diet_app.models import WaterConsumption
+from diet_app.models import DietDay
 
 
 @admin.register(Diet)
@@ -51,3 +52,9 @@ class UserDetailsAdmin(admin.ModelAdmin):  # noqa: D101
 @admin.register(WaterConsumption)
 class WaterConsumptionAdmin(admin.ModelAdmin):  # noqa: D101
     pass
+
+
+@admin.register(DietDay)
+class DietDayAdmin(admin.ModelAdmin):  # noqa: D101
+    pass
+
