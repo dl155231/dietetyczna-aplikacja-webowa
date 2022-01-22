@@ -12,7 +12,7 @@ pipelines:
         script:
           - git archive --format=tar.gz main -o psi-apka-dietetyczna.tar.gz
         artifacts:
-          - sample-app.tar.gz
+          - psi-apka-dietetyczna.tar.gz
       
     - step:
         name: Deploy to production
