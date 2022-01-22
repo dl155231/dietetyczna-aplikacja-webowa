@@ -293,3 +293,33 @@ class WaterConsumption(models.Model):  # noqa: D101
 
     def __str__(self):  # noqa: D105
         return self.user
+
+
+class Consultations(models.Model):  # noqa: D101
+
+    date = models.DateTimeField(
+        verbose_name=_('Data'),
+    )
+
+    client = models.ForeignKey(
+        Client,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Klient'),
+    )
+
+    nutritionist = models.ForeignKey(
+        Nutritionist,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Dietetyk'),
+    )
+
+    class Meta:  # noqa: D106
+        verbose_name = _('Konsultacja')
+        verbose_name_plural = _('Konsultacje')
+
+    def __str__(self):  # noqa: D105
+        return self.client

@@ -5,13 +5,13 @@ from django.contrib import admin
 # Project
 from diet_app.models import Client
 from diet_app.models import Diet
+from diet_app.models import DietDay
 from diet_app.models import Nutrients
 from diet_app.models import Nutritionist
 from diet_app.models import Product
 from diet_app.models import UserDetails
 from diet_app.models import Vitamin
 from diet_app.models import WaterConsumption
-from diet_app.models import DietDay
 
 
 @admin.register(Diet)
