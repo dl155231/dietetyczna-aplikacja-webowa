@@ -3,9 +3,10 @@
 from django.urls import path
 
 # Project
-from diet_app.views import ClientDietView
+from diet_app.views import MainView, NotificationListView
 
 app_name = 'diet'
 urlpatterns = [
-    path('diet/', ClientDietView.as_view(), name='client_diet'),
+    path('home/', MainView.as_view(), name='client_diet'),
+    path('notification-list/', NotificationListView.as_view(), name='notification_list'),
 ]

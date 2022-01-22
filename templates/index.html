@@ -26,8 +26,13 @@
 </head>
 <body>
 
-{% block navbar %}
-{% endblock navbar %}
+
+  {% if is_client %}
+    {% include 'partials/navbar_client.html' %}
+  {% else %}
+    {% include 'partials/navabr_nutritionist.html' %}
+  {% endif %}
+
 {% include "messages.html" %}
 
 {% block content %}
