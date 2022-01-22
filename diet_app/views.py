@@ -6,7 +6,8 @@ from datetime import date
 from django.views.generic import TemplateView
 
 # Project
-from diet_app.models import Diet, DietDay
+from diet_app.models import Diet
+from diet_app.models import DietDay
 from diet_app.utils import check_user
 
 

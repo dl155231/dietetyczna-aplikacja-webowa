@@ -5,6 +5,7 @@
 from datetime import date
 
 # Django
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
 
@@ -25,7 +26,7 @@ class Diet(models.Model):  # noqa: D101
     )
 
     user = models.OneToOneField(
-        'accounts.CustomUser',
+        settings.AUTH_USER_MODEL,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -174,7 +175,7 @@ class Nutrients(models.Model):  # noqa: D101
 class Client(models.Model):  # noqa: D101
     phone_number = models.CharField(max_length=20)
     user = models.ForeignKey(
-        'accounts.CustomUser',
+        settings.AUTH_USER_MODEL,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -200,7 +201,7 @@ class Nutritionist(models.Model):  # noqa: D101
     )
 
     user = models.ForeignKey(
-        'accounts.CustomUser',
+        settings.AUTH_USER_MODEL,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -279,7 +280,7 @@ class WaterConsumption(models.Model):  # noqa: D101
     )
 
     user = models.ForeignKey(
-        'accounts.CustomUser',
+        settings.AUTH_USER_MODEL,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -292,3 +293,33 @@ class WaterConsumption(models.Model):  # noqa: D101
 
     def __str__(self):  # noqa: D105
         return self.user
+
+
+class Consultations(models.Model):  # noqa: D101
+
+    date = models.DateTimeField(
+        verbose_name=_('Data'),
+    )
+
+    client = models.ForeignKey(
+        Client,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Klient'),
+    )
+
+    nutritionist = models.ForeignKey(
+        Nutritionist,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Dietetyk'),
+    )
+
+    class Meta:  # noqa: D106
+        verbose_name = _('Konsultacja')
+        verbose_name_plural = _('Konsultacje')
+
+    def __str__(self):  # noqa: D105
+        return self.client
