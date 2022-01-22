@@ -134,7 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # allauth-specific settings
 LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'account_login'
+LOGOUT_REDIRECT_URL = 'index'
 ACCOUNT_SESSION_REMEMBER = False
 
 try:

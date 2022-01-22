@@ -26,6 +26,11 @@ class Diet(models.Model):  # noqa: D101
         verbose_name=_('Użytkownik'),
     )
 
+    days = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_('Dni'),
+    )
+
     class Meta:  # noqa: D106
         verbose_name = _('Dieta')
         verbose_name_plural = _('Diety')
