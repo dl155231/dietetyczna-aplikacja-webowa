@@ -35,3 +35,11 @@ class MainView(TemplateView):  # noqa: D101
 
 class NotificationListView(TemplateView):
     template_name = 'notification_list.html'
+
+    def get_context_data(self, **kwargs):  # noqa: D102
+        context = super().get_context_data(**kwargs)
+        if not self.request.user.is_anonymous:
+            if not check_user(self.request.user):
+                # context['notifications'] =  tu bedzie lista zgloszen!
+                return context
+        return context
