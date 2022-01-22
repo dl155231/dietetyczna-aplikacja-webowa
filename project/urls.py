@@ -19,7 +19,7 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('allauth.urls')),
     # path('', TemplateView.as_view(template_name='index.html'))
     path('', include('diet_app.urls')),
-    path('logout/', LogoutView.as_view(), name='logout')
 ]
