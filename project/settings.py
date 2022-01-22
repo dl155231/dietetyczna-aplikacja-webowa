@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # Application definition
-ALLOWED_HOSTS = ['https://psi-apka-dietetyczna.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
