@@ -11,6 +11,7 @@ from django.utils.translation import gettext as _
 
 
 class Diet(models.Model):  # noqa: D101
+
     meal_count = models.IntegerField(
         verbose_name=_('Ilość posiłków'),
     )
@@ -35,6 +36,12 @@ class Diet(models.Model):  # noqa: D101
     day_end = models.DateField(
         verbose_name=_('Koniec diety'),
         default=date.today,
+    )
+
+    name_diet = models.CharField(
+        max_length=255,
+        verbose_name=_('Nazwa diety'),
+        null=True,
     )
 
     class Meta:  # noqa: D106

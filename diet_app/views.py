@@ -12,6 +12,7 @@ class ClientDietView(TemplateView):
     def get_context_data(self, **kwargs):  # noqa: D102
         context = super().get_context_data(**kwargs)
         if not self.request.user.is_anonymous:
-            context['diets'] = Diet.objects.filter(user=self.request.user)
+            diet = Diet.objects.get(user=self.request.user)
+            context['diet_name'] = diet.name_diet
         return context
 
