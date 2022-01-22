@@ -32,16 +32,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
-
     # 3rd party
+    # apps
+    'accounts.apps.AccountsConfig',
+    'diet_app.apps.DietAppConfig',
     'allauth',
     'allauth.account',
     'fontawesomefree',
     'bootstrap5',
 
-    # apps
-    'accounts.apps.AccountsConfig',
-    'diet_app.apps.DietAppConfig',
 ]
 AUTH_USER_MODEL = 'accounts.CustomUser'
 

@@ -1,4 +1,4 @@
-"""Diet app admin."""
+"""Diet admin."""
 # Django
 from django.contrib import admin
 
