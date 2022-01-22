@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+{% block title %}{{ block.super }} | Wylogowywanie {% endblock %}
+
+{% block content %}
+  <div class="container justify-content-center content">
+      <h1>Wyloguj się</h1>
+      <p>Czy na pewno chcesz się wylogować?</p>
+
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Wyloguj się</button>
+      </form>
+    </div>
+
+
+{% endblock %}
