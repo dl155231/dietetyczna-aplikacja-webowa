@@ -146,7 +146,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'public/uploads/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
- # Debugging in heroku live
+# Debugging in heroku live
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
