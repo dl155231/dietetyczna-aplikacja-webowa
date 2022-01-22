@@ -1,10 +1,13 @@
 """API models."""
 # Django
 # from django.contrib.auth import get_user_model
+# Standard Library
 from datetime import date
 
+# Django
 from django.db import models
 from django.utils.translation import gettext as _
+
 # from accounts.models import CustomUser
 
 # User = get_user_model()
@@ -52,13 +55,13 @@ class Diet(models.Model):  # noqa: D101
         return str(self.meal_count)
 
 
-class DietDay(models.Model):
+class DietDay(models.Model):  # noqa: D101
     day_meals = models.TextField(
-        verbose_name=_('Dzienne posiłki')
+        verbose_name=_('Dzienne posiłki'),
     )
     day = models.DateField(
         default=date.today,
-        verbose_name=_('Dzień diety')
+        verbose_name=_('Dzień diety'),
     )
     diet = models.ForeignKey(
         Diet,
@@ -216,7 +219,7 @@ class UserDetails(models.Model):  # noqa: D101
     CHOICES = (
         ('male', _('Mężczyzna')),
         ('female', _('Kobieta')),
-        ('other', _('Inna'))
+        ('other', _('Inna')),
     )
 
     weight_current = models.IntegerField(
@@ -235,7 +238,7 @@ class UserDetails(models.Model):  # noqa: D101
         verbose_name=_('Płeć'),
         max_length=9,
         choices=CHOICES,
-        default='other'
+        default='other',
     )
 
     weight_target = models.IntegerField(

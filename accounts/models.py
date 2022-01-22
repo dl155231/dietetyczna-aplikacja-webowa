@@ -1,11 +1,15 @@
+"""Accounts models."""
+# Django
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+# Project
 from diet_app.models import UserDetails
 
 
-class CustomUser(AbstractUser):
+class CustomUser(AbstractUser):  # noqa: D101
     """Custom User class."""
+
     user_details = models.ForeignKey(
         UserDetails,
         null=True,

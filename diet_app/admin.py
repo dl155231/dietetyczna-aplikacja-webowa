@@ -1,6 +1,16 @@
+"""Diet app admin."""
+# Django
 from django.contrib import admin
 
-from diet_app.models import Diet, Product, Vitamin, Nutrients, Client, Nutritionist, UserDetails, WaterConsumption
+# Project
+from diet_app.models import Client
+from diet_app.models import Diet
+from diet_app.models import Nutrients
+from diet_app.models import Nutritionist
+from diet_app.models import Product
+from diet_app.models import UserDetails
+from diet_app.models import Vitamin
+from diet_app.models import WaterConsumption
 
 
 @admin.register(Diet)

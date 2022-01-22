@@ -38,4 +38,3 @@ class UserAdmin(admin.ModelAdmin):  # noqa: D101
              'user_permissions',
          )}),
     )
-
