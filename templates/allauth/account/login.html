@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+{% load static %}
+{% load bootstrap5 %}
+{% block title %}{{ block.super }} | Logowanie{% endblock %}
+{% block extra_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container d-flex vh-100 align-items-center">
+    <div class="row justify-content-center w-100">
+      <div class="col-4">
+        <div class="modal-content justify-content-center align-items-center">
+          <div class="modal-header w-100 justify-content-center bg-primary">
+            <img class="img-fluid"
+                 src="{% static 'images/logo.png' %}"
+                 alt="logo">
+          </div>
+          <form id="signin_form" method="post">
+            <div class="modal-body">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              <div class="form-group d-flex justify-content-center">
+                {% bootstrap_button "Zaloguj" 'submit' 'btn-secondary' %}
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

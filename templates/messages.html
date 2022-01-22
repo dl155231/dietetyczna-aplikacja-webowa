@@ -1,0 +1,17 @@
+{% if messages %}
+  {% for message in messages %}
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function (handleToast) {
+            iziToast.info({
+                title: '',
+                message: "{{ message }}",
+                position: 'topCenter',
+                timeout: 3000,
+                progressBar: false,
+            });
+        })
+        document.removeEventListener("DOMContentLoaded", function (handleToast) {
+        }, true);
+    </script>
+  {% endfor %}
+{% endif %}

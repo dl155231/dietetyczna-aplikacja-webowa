@@ -4,10 +4,21 @@
 <head>
   <meta charset="UTF-8">
 
-  <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css"/>
-  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
-  <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet"
+  <link href="{% static 'css/base.css' %}"
+        rel="stylesheet"
         type="text/css"/>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="{% static 'fontawesomefree/css/all.min.css' %}"
+        rel="stylesheet"
+        type="text/css"/>
+  <script src="{% static 'js/plugins/iziToast.js' %}"
+          type="text/javascript"></script>
+  <link href="{% static 'css/iziToast.min.css' %}"
+        rel="stylesheet"
+        type="text/css"/>
+
 
   <title></title>
 </head>
@@ -15,10 +26,10 @@
 
 {% block navbar %}
 {% endblock navbar %}
+{% include "messages.html" %}
 
 {% block content %}
 {% endblock content %}
-
 
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>

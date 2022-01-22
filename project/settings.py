@@ -36,7 +36,9 @@ INSTALLED_APPS = [
 
     # 3rd party
     'allauth',
+    'allauth.account'
     'fontawesomefree',
+    'bootstrap5',
 
     # apps
     'accounts.apps.AccountsConfig',
@@ -71,6 +73,7 @@ TEMPLATES = [
         },
     },
 ]
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -138,8 +141,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'public/uploads/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # allauth-specific settings
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'diet:client_diet'
+LOGOUT_REDIRECT_URL = 'diet:client_diet'
 ACCOUNT_SESSION_REMEMBER = False
 
 try:
