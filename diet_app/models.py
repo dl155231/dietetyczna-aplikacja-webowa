@@ -1,6 +1,8 @@
 """API models."""
 # Django
 # from django.contrib.auth import get_user_model
+from datetime import date
+
 from django.db import models
 from django.utils.translation import gettext as _
 # from accounts.models import CustomUser
@@ -26,9 +28,13 @@ class Diet(models.Model):  # noqa: D101
         verbose_name=_('Użytkownik'),
     )
 
-    days = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_('Dni'),
+    day_zero = models.DateField(
+        verbose_name=_('Początek diety'),
+        default=date.today,
+    )
+    day_end = models.DateField(
+        verbose_name=_('Koniec diety'),
+        default=date.today,
     )
 
     class Meta:  # noqa: D106
