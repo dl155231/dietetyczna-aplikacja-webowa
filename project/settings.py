@@ -36,7 +36,7 @@ INSTALLED_APPS = [
 
     # 3rd party
     'allauth',
-    'allauth.account'
+    'allauth.account',
     'fontawesomefree',
     'bootstrap5',
 
