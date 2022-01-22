@@ -72,7 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'diet_app.context_processors.extra_content',
+                # 'diet_app.context_processors.extra_content',
             ],
         },
     },
