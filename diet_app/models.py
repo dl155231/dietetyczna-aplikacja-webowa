@@ -21,7 +21,7 @@ class Diet(models.Model):  # noqa: D101
         verbose_name=_('Kalorie'),
     )
 
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         'accounts.CustomUser',
         null=True,
         blank=True,
@@ -50,6 +50,30 @@ class Diet(models.Model):  # noqa: D101
 
     def __str__(self):  # noqa: D105
         return str(self.meal_count)
+
+
+class DietDay(models.Model):
+    day_meals = models.TextField(
+        verbose_name=_('Dzienne posiłki')
+    )
+    day = models.DateField(
+        default=date.today,
+        verbose_name=_('Dzień diety')
+    )
+    diet = models.ForeignKey(
+        Diet,
+        null=True,
+        blank=True,
+        verbose_name=_('Dieta'),
+        on_delete=models.SET_NULL,
+    )
+
+    class Meta:  # noqa: D106
+        verbose_name = _('Dzień diety')
+        verbose_name_plural = _('Dni diety')
+
+    def __str__(self):  # noqa: D105
+        return str(self.day) + ' | ' + str(self.diet.name_diet)
 
 
 class Product(models.Model):  # noqa: D101

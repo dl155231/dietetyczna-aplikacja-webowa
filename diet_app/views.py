@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.shortcuts import render
 
 # Create your views here.
@@ -12,7 +14,11 @@ class ClientDietView(TemplateView):
     def get_context_data(self, **kwargs):  # noqa: D102
         context = super().get_context_data(**kwargs)
         if not self.request.user.is_anonymous:
-            diet = Diet.objects.get(user=self.request.user)
-            context['diet_name'] = diet.name_diet
+            try:
+                diet = Diet.objects.get(user=self.request.user)
+                context['diet_name'] = diet.name_diet
+                context['diet_day'] = (date.today()-diet.day_zero).days
+            except Diet.DoesNotExist:
+                return context
         return context
 
