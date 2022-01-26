@@ -2,10 +2,15 @@
 
 {% block content %}
   <div class="container-fluid w-100 h-100">
+  <div class="row ">
+      <div class="col-12 d-flex justify-content-center mt-5">
+        <a href="{% url 'diet:diet_days_creator_first' diet_id %}" class="btn btn-info">Dodaj dzień</a>
+      </div>
+    </div>
     <div class="row d-flex justify-content-center w-100 mt-5">
       {% for diet_day in diet_days_list %}
         <div class="col-12 d-flex justify-content-center">
-          <a class="diet-box">{{ diet_day }}</a>
+          <a href="{% url 'diet:diet_days_creator' diet_id diet_day.id %}" class="diet-box">{{ diet_day }}</a>
         </div>
       {% endfor %}
     </div>

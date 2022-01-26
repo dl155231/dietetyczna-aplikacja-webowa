@@ -8,8 +8,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 # Project
-from diet_app.forms import DietCreatorForm
-from diet_app.models import Diet
+from diet_app.forms import DietCreatorForm, DayDietForm
+from diet_app.models import Diet, Product
 from diet_app.models import DietDay
 
 
@@ -85,4 +85,35 @@ def diet_creator_first(request):
 
 def diet_days_list(request, diet_id):
     diet_days_list = DietDay.objects.filter(diet_id=diet_id)
-    return render(request, 'diet_days_list.html', {'diet_days_list': diet_days_list})
+    return render(request, 'diet_days_list.html', {'diet_id': diet_id, 'diet_days_list': diet_days_list})
+
+
+def diet_day_creator(request, diet_id, diet_day_id):
+    diet_day = DietDay.objects.get(diet_id=diet_id, id=diet_day_id)
+    diet = Diet.objects.get(id=diet_id)
+    if request.method == 'GET':
+        form_diet_day = DayDietForm(instance=diet_day, diet=diet)
+    if request.method == 'POST':
+        form_diet_day = DayDietForm(data=request.POST, instance=diet_day, diet=diet)
+        if form_diet_day.is_valid():
+            form_diet_day.save()
+            return redirect('diet:diet_days', diet_id)
+
+    return render(request, 'diet_day_creator.html', {'form_diet_day': form_diet_day, 'diet_id': diet_id, 'diet_day_id': diet_day_id})
+
+
+def diet_day_creator_first(request, diet_id):
+    diet = Diet.objects.get(id=diet_id)
+    if request.method == 'GET':
+        form_diet_day = DayDietForm(diet=diet)
+    if request.method == 'POST':
+        form_diet_day = DayDietForm(data=request.POST, diet=diet)
+        if form_diet_day.is_valid():
+            form_diet_day.save()
+            return redirect('diet:diet_days', diet_id)
+    return render(request, 'diet_day_creator_first.html', {'form_diet_day': form_diet_day})
+
+
+def products_list(request, diet_day_id):
+    products = Product.objects.filter(diet_day_id=diet_day_id)
+    return render(request, 'products_list.html', {'products': products, 'diet_day_id': diet_day_id})
