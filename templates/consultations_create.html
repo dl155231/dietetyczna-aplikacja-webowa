@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% load bootstrap5 %}
+{% block content %}
+  <div class="container w-75 d-flex flex-column align-items-center">
+    <h1>Formularz zgłoszeniowy</h1>
+    <form method="post" class="w-50">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% bootstrap_button "Wyślij zgłoszenie" submit button_class="btn-success" %}
+    </form>
+  </div>
+{% endblock %}

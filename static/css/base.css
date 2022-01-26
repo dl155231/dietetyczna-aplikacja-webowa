@@ -1,3 +1,7 @@
+* {
+  color: greenyellow;
+}
+
 body {
   display: flex;
   flex-flow: column;
@@ -56,6 +60,10 @@ html {
 .diet-box:hover {
   text-decoration: none;
   color: green;
+}
+
+* {
+  color: greenyellow;
 }
 
 /*# sourceMappingURL=base.css.map */

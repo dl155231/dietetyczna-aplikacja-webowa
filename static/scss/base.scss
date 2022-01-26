@@ -1,3 +1,7 @@
+* {
+  color: greenyellow;
+}
+
 body {
   display: flex;
   flex-flow: column;
@@ -15,10 +19,12 @@ html {
   color: greenyellow;
   font-weight: 700;
 }
-.small-brand{
+
+.small-brand {
   font-size: 12px;
 }
-.radioactive{
+
+.radioactive {
   font-size: 50px;
   color: greenyellow;
 }
@@ -30,6 +36,7 @@ html {
 .navbar-items {
   font-size: 20px;
   color: greenyellow !important;
+
   a {
     font-size: 20px;
     color: greenyellow !important;
@@ -52,8 +59,13 @@ html {
   font-size: 30px;
   padding: 10px 20px;
   width: 80%;
-  &:hover{
+
+  &:hover {
     text-decoration: none;
     color: green;
   }
+}
+
+* {
+  color: greenyellow;
 }

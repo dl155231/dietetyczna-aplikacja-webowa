@@ -3,14 +3,23 @@
 from datetime import date
 
 # Django
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.views.generic import ListView
 from django.views.generic import TemplateView
 
 # Project
-from diet_app.forms import DietCreatorForm, DayDietForm
-from diet_app.models import Diet, Product
+from diet_app.forms import ConsultationsForm
+from diet_app.forms import DayDietForm
+from diet_app.forms import DietCreatorForm
+from diet_app.models import Consultations
+from diet_app.models import Diet
 from diet_app.models import DietDay
+from diet_app.models import Product
 
 
 class MainView(LoginRequiredMixin, TemplateView):  # noqa: D101
@@ -35,7 +44,7 @@ class MainView(LoginRequiredMixin, TemplateView):  # noqa: D101
         return context
 
 
-class NotificationListView(TemplateView):
+class NotificationListView(TemplateView):   # noqa: D101
     template_name = 'notification_list.html'
 
     def get_context_data(self, **kwargs):  # noqa: D102
@@ -45,13 +54,13 @@ class NotificationListView(TemplateView):
 
 
 def main_page_redirect(request):
-    """That view redirect to individual users's page."""
-    if not request.user.is_anonymous and request.user.nutritionist != None:
-        return  redirect('diet:diet_list', request.user.nutritionist.id)
+    """View redirect to individual users page."""
+    if not request.user.is_anonymous and request.user.nutritionist is not None:
+        return redirect('diet:diet_list', request.user.nutritionist.id)
     return redirect('diet:client_diet')
 
 
-def diet_list(request, nut_id):
+def diet_list(request, nut_id):  # noqa: D103
     try:
         diet_list = Diet.objects.filter(nutritionist_id=nut_id)
     except Diet.DoesNotExist:
@@ -59,7 +68,7 @@ def diet_list(request, nut_id):
     return render(request, 'diets_list.html', {'diet_list': diet_list})
 
 
-def diet_creator(request, diet_id):
+def diet_creator(request, diet_id):  # noqa: D103
     diet = Diet.objects.get(id=diet_id)
     if request.method == 'GET':
         form_diet = DietCreatorForm(instance=diet, user=request.user)
@@ -71,24 +80,25 @@ def diet_creator(request, diet_id):
     return render(request, 'diet_creator.html', {'form_diet': form_diet, 'diet_id': diet_id})
 
 
-def diet_creator_first(request):
+def diet_creator_first(request):  # noqa: D103
     if request.method == 'GET':
         form_diet = DietCreatorForm(user=request.user)
     if request.method == 'POST':
         form_diet = DietCreatorForm(data=request.POST, user=request.user)
         if form_diet.is_valid():
             form_diet.save()
-            return redirect('diet:diet_list', request.user.nutritionist.id )
+            return redirect('diet:diet_list', request.user.nutritionist.id)
 
     return render(request, 'diet_creator_first.html', {'form_diet': form_diet})
 
 
-def diet_days_list(request, diet_id):
+def diet_days_list(request, diet_id):  # noqa: D103
     diet_days_list = DietDay.objects.filter(diet_id=diet_id)
-    return render(request, 'diet_days_list.html', {'diet_id': diet_id, 'diet_days_list': diet_days_list})
+    return render(request, 'diet_days_list.html',
+                  {'diet_id': diet_id, 'diet_days_list': diet_days_list})
 
 
-def diet_day_creator(request, diet_id, diet_day_id):
+def diet_day_creator(request, diet_id, diet_day_id):  # noqa: D103
     diet_day = DietDay.objects.get(diet_id=diet_id, id=diet_day_id)
     diet = Diet.objects.get(id=diet_id)
     if request.method == 'GET':
@@ -99,10 +109,14 @@ def diet_day_creator(request, diet_id, diet_day_id):
             form_diet_day.save()
             return redirect('diet:diet_days', diet_id)
 
-    return render(request, 'diet_day_creator.html', {'form_diet_day': form_diet_day, 'diet_id': diet_id, 'diet_day_id': diet_day_id})
+    return render(request,
+                  'diet_day_creator.html', {
+                      'form_diet_day': form_diet_day,
+                      'diet_id': diet_id, 'diet_day_id': diet_day_id},
+                  )
 
 
-def diet_day_creator_first(request, diet_id):
+def diet_day_creator_first(request, diet_id):  # noqa: D103
     diet = Diet.objects.get(id=diet_id)
     if request.method == 'GET':
         form_diet_day = DayDietForm(diet=diet)
@@ -114,6 +128,22 @@ def diet_day_creator_first(request, diet_id):
     return render(request, 'diet_day_creator_first.html', {'form_diet_day': form_diet_day})
 
 
-def products_list(request, diet_day_id):
+def products_list(request, diet_day_id):  # noqa: D103
     products = Product.objects.filter(diet_day_id=diet_day_id)
-    return render(request, 'products_list.html', {'products': products, 'diet_day_id': diet_day_id})
+    return render(request, 'products_list.html',
+                  {'products': products, 'diet_day_id': diet_day_id})
+
+
+class ConsultationsListView(LoginRequiredMixin, ListView):  # noqa: D101
+    template_name = 'consultations_list.html'
+    model = Consultations
+
+
+class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
+    template_name = 'consultations_create.html'
+    model = Consultations
+    form_class = ConsultationsForm
+
+    def get_success_url(self):  # noqa: D102
+        messages.success(self.request, 'Wysłano zgłoszenie')
+        return reverse_lazy('diet:client_diet')

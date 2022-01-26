@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 # Standard Library
 import os
-import django_heroku
-
 from pathlib import Path
+
+# 3rd-party
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -155,11 +156,11 @@ LOGGING = {
             'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
                        'pathname=%(pathname)s lineno=%(lineno)s ' +
                        'funcname=%(funcName)s %(message)s'),
-            'datefmt': '%Y-%m-%d %H:%M:%S'
+            'datefmt': '%Y-%m-%d %H:%M:%S',
         },
         'simple': {
-            'format': '%(levelname)s %(message)s'
-        }
+            'format': '%(levelname)s %(message)s',
+        },
     },
     'handlers': {
         'null': {
@@ -169,15 +170,15 @@ LOGGING = {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
         'testlogger': {
             'handlers': ['console'],
             'level': 'INFO',
-        }
-    }
+        },
+    },
 }
 
 DEBUG_PROPAGATE_EXCEPTIONS = True

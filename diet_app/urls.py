@@ -3,8 +3,18 @@
 from django.urls import path
 
 # Project
-from diet_app.views import MainView, NotificationListView, diet_list, diet_creator, main_page_redirect, diet_days_list, \
-    diet_creator_first, diet_day_creator, diet_day_creator_first, products_list
+from diet_app.views import ConsultationsCreateView
+from diet_app.views import ConsultationsListView
+from diet_app.views import MainView
+from diet_app.views import NotificationListView
+from diet_app.views import diet_creator
+from diet_app.views import diet_creator_first
+from diet_app.views import diet_day_creator
+from diet_app.views import diet_day_creator_first
+from diet_app.views import diet_days_list
+from diet_app.views import diet_list
+from diet_app.views import main_page_redirect
+from diet_app.views import products_list
 
 app_name = 'diet'
 urlpatterns = [
@@ -18,4 +28,6 @@ urlpatterns = [
     path('products-list/<diet_day_id>/', products_list, name='products_list'),
     path('diet-days-creator/<diet_id>/<diet_day_id>/', diet_day_creator, name='diet_days_creator'),
     path('notification-list/', NotificationListView.as_view(), name='notification_list'),
+    path('consultations/list/', ConsultationsListView.as_view(), name='consultation_list'),
+    path('consultations/create/', ConsultationsCreateView.as_view(), name='consultation_create'),
 ]

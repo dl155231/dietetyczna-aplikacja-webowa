@@ -4,6 +4,7 @@ from django.contrib import admin
 
 # Project
 from diet_app.models import Client
+from diet_app.models import Consultations
 from diet_app.models import Diet
 from diet_app.models import DietDay
 from diet_app.models import Nutrients
@@ -58,3 +59,19 @@ class WaterConsumptionAdmin(admin.ModelAdmin):  # noqa: D101
 class DietDayAdmin(admin.ModelAdmin):  # noqa: D101
     pass
 
+
+def model_str(obj):  # noqa: D103
+    return str(obj)
+
+
+model_str.short_description = 'Zgłoszenie'
+
+
+@admin.register(Consultations)
+class ConsultationsAdmin(admin.ModelAdmin):  # noqa: D101
+    list_display = (
+        model_str,
+        'client',
+        'nutritionist',
+        'date',
+    )

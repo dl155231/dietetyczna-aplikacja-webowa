@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% load i18n %}
+{% block title %}{{ block.super }} | {% trans "Lista konsultacji" %}{% endblock %}
+
+{% block content %}
+  <div class="container-fluid h-100">
+    <div class="row ">
+      {% for consultations in object_list %}
+      <div class="col-12 d-flex justify-content-center mt-5 diet-box">
+        <a href="{% url 'diet:diet_creator_first' %}" class="btn btn-info">Dodaj dietę</a>
+      </div>
+        {{ consultations }}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}

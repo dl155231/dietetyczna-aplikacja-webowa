@@ -1,7 +1,7 @@
 """API models."""
-# Django
-# from django.contrib.auth import get_user_model
+
 # Standard Library
+import datetime
 from datetime import date
 
 # Django
@@ -9,9 +9,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
 
-# from accounts.models import CustomUser
-
-# User = get_user_model()
+# Project
+from diet_app.utils import present_or_future_date
 
 
 class Nutritionist(models.Model):  # noqa: D101
@@ -32,7 +31,7 @@ class Nutritionist(models.Model):  # noqa: D101
         verbose_name_plural = _('Dietetycy')
 
     def __str__(self):  # noqa: D105
-        return self.bank_account
+        return f'{self.customuser}'
 
 
 class Diet(models.Model):  # noqa: D101
@@ -209,7 +208,7 @@ class Client(models.Model):  # noqa: D101
         verbose_name_plural = _('Klienci')
 
     def __str__(self):  # noqa: D105
-        return self.phone_number
+        return f'{self.customuser}'
 
 
 class UserDetails(models.Model):  # noqa: D101
@@ -293,8 +292,14 @@ class WaterConsumption(models.Model):  # noqa: D101
 
 class Consultations(models.Model):  # noqa: D101
 
-    date = models.DateTimeField(
+    date = models.DateField(
         verbose_name=_('Data'),
+        default=datetime.date.today,
+        validators=[present_or_future_date],
+    )
+    time = models.TimeField(
+        verbose_name=_('Godzina'),
+        default=datetime.datetime.now().replace(second=0),
     )
 
     client = models.ForeignKey(
@@ -316,6 +321,7 @@ class Consultations(models.Model):  # noqa: D101
     class Meta:  # noqa: D106
         verbose_name = _('Konsultacja')
         verbose_name_plural = _('Konsultacje')
+        ordering = ['-date']
 
     def __str__(self):  # noqa: D105
-        return self.client
+        return f'Zgłoszenie konsultacji nr {self.id}'
