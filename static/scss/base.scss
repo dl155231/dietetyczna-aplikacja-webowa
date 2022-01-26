@@ -1,5 +1,6 @@
 form {
   color: greenyellow;
+
   input {
     background-color: black;
     color: greenyellow;
@@ -75,5 +76,14 @@ html {
   &:hover {
     text-decoration: none;
     color: green;
+  }
+}
+
+#signout-modal {
+  .modal-body {
+    color: black;
+  }
+  .modal-title {
+    color: black;
   }
 }

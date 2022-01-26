@@ -1,0 +1,29 @@
+{% load bootstrap5 %}
+{% load i18n %}
+<div class="modal fade" id="signout-modal" tabindex="-1" aria-labelledby="signoutLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signoutLabel">{% trans "Wyloguj" %}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <form method="post" action="{% url 'account_logout' %}">
+        <div class="modal-body">
+          <p>{% trans 'Czy na pewno chcesz się wylogować?' %}</p>
+          {% csrf_token %}
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}"
+                   value="{{ redirect_field_value }}"/>
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">{% trans "Wyloguj" %}</button>
+          <button type="button" class="btn btn-secondary"
+                  data-bs-dismiss="modal">{% trans "Zamknij" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
