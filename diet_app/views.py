@@ -62,10 +62,27 @@ def diet_list(request, nut_id):
 def diet_creator(request, diet_id):
     diet = Diet.objects.get(id=diet_id)
     if request.method == 'GET':
-        form_diet = DietCreatorForm(instance=diet)
+        form_diet = DietCreatorForm(instance=diet, user=request.user)
     if request.method == 'POST':
-        form_diet = DietCreatorForm(request.POST, instance=diet)
+        form_diet = DietCreatorForm(data=request.POST, instance=diet, user=request.user)
         if form_diet.is_valid():
             form_diet.save()
 
-    return render(request, 'diet_creator.html', {'form_diet': form_diet})
+    return render(request, 'diet_creator.html', {'form_diet': form_diet, 'diet_id': diet_id})
+
+
+def diet_creator_first(request):
+    if request.method == 'GET':
+        form_diet = DietCreatorForm(user=request.user)
+    if request.method == 'POST':
+        form_diet = DietCreatorForm(data=request.POST, user=request.user)
+        if form_diet.is_valid():
+            form_diet.save()
+            return redirect('diet:diet_list', request.user.nutritionist.id )
+
+    return render(request, 'diet_creator_first.html', {'form_diet': form_diet})
+
+
+def diet_days_list(request, diet_id):
+    diet_days_list = DietDay.objects.filter(diet_id=diet_id)
+    return render(request, 'diet_days_list.html', {'diet_days_list': diet_days_list})

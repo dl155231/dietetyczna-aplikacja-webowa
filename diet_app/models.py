@@ -119,12 +119,12 @@ class Product(models.Model):  # noqa: D101
         verbose_name=_('Nazwa produktu'),
     )
 
-    diet = models.ForeignKey(
-        Diet,
+    diet_day = models.ForeignKey(
+        DietDay,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        verbose_name=_('Dieta'),
+        verbose_name=_('Dzień diety'),
     )
 
     class Meta:  # noqa: D106
@@ -132,7 +132,7 @@ class Product(models.Model):  # noqa: D101
         verbose_name_plural = _('Produkty')
 
     def __str__(self):  # noqa: D105
-        return str(self.product_name)
+        return str(self.product_name) + '|' + str(self.diet_day)
 
 
 class Vitamin(models.Model):  # noqa: D101
