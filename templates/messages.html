@@ -1,7 +1,7 @@
 {% if messages %}
   {% for message in messages %}
     <script type="text/javascript">
-        $(document).on('load', () => {
+        $(document).ready( () => {
             iziToast.info({
                 title: '',
                 message: "{{ message }}",
