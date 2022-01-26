@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 
@@ -44,7 +44,7 @@ class MainView(LoginRequiredMixin, TemplateView):  # noqa: D101
         return context
 
 
-class NotificationListView(TemplateView):   # noqa: D101
+class NotificationListView(TemplateView):  # noqa: D101
     template_name = 'notification_list.html'
 
     def get_context_data(self, **kwargs):  # noqa: D102
@@ -146,4 +146,26 @@ class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
 
     def get_success_url(self):  # noqa: D102
         messages.success(self.request, 'Wysłano zgłoszenie')
+        return reverse_lazy('diet:client_diet')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        print(self.request.user)
+        kwargs['client'] = self.request.user.client
+        print(kwargs['client'])
+        return kwargs
+
+    def form_valid(self, form):  # noqa: D102
+        print(form.cleaned_data['client'])
+        form.instance.client = form.cleaned_data['client']
+        return super().form_valid(form)
+
+
+class ConsultationsUpdateView(LoginRequiredMixin, UpdateView):  # noqa: D101
+    template_name = 'consultations_edit.html'
+    model = Consultations
+    form_class = ConsultationsForm
+
+    def get_success_url(self):  # noqa: D102
+        messages.success(self.request, 'Zmiany zapisane')
         return reverse_lazy('diet:client_diet')

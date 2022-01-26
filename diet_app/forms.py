@@ -1,7 +1,7 @@
 """Forms for the diet_app."""
 # Django
 from django import forms
-
+from django.utils import timezone
 # Project
 from diet_app.models import Consultations
 from diet_app.models import Diet
@@ -57,18 +57,20 @@ class DayDietForm(forms.ModelForm):  # noqa: D101
 
 class ConsultationsForm(forms.ModelForm):  # noqa: D101
     def __init__(self, *args, **kwargs):  # noqa: D107
+        client = kwargs.pop('client', None)
+        print(client, 'forms')
         super().__init__(*args, **kwargs)
         self.fields['nutritionist'].queryset = Nutritionist.objects.all()
-
-    def form_valid(self, form):  # noqa: D102
-        form.instance.client = self.request.user.client
-        return super().form_valid(form)
+        self.fields['date'].initial = timezone.localdate()
+        self.fields['time'].initial = timezone.localtime().strftime('%H:%M')
+        self.fields['client'].initial = client
 
     class Meta:  # noqa: D106
         model = Consultations
-        fields = ['date', 'time', 'nutritionist']
+        fields = ['date', 'time', 'client', 'nutritionist']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'time': forms.TimeInput(attrs={'type': 'time'}),
             'nutritionist': forms.Select(attrs={'class': 'form-control', 'required': 'required'}),
+            'client': forms.HiddenInput(),
         }
