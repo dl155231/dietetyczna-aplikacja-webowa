@@ -150,9 +150,6 @@ class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        print(self.request.user)
-        kwargs['client'] = self.request.user.client
-        print(kwargs['client'])
         return kwargs
 
     def form_valid(self, form):  # noqa: D102

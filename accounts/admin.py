@@ -24,6 +24,7 @@ class UserAdmin(admin.ModelAdmin):  # noqa: D101
              'last_name',
              'email',
              'username',
+             'password',
          )}),
         ('Ważne daty',
          {'fields': (
@@ -38,7 +39,6 @@ class UserAdmin(admin.ModelAdmin):  # noqa: D101
              'is_nutritionist',
              'groups',
              'user_permissions',
-             'client',
              'nutritionist',
          )}),
     )

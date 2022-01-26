@@ -201,6 +201,11 @@ class Nutrients(models.Model):  # noqa: D101
 
 
 class Client(models.Model):  # noqa: D101
+    user = models.OneToOneField(
+        'accounts.CustomUser',
+        on_delete=models.CASCADE,
+        default=None,
+    )
     phone_number = models.CharField(max_length=20)
 
     class Meta:  # noqa: D106
@@ -208,7 +213,7 @@ class Client(models.Model):  # noqa: D101
         verbose_name_plural = _('Klienci')
 
     def __str__(self):  # noqa: D105
-        return f'{self.customuser}'
+        return f'{self.user.get_full_name()}'
 
 
 class UserDetails(models.Model):  # noqa: D101
@@ -294,12 +299,11 @@ class Consultations(models.Model):  # noqa: D101
 
     date = models.DateField(
         verbose_name=_('Data'),
-        default=datetime.date.today,
         validators=[present_or_future_date],
     )
+
     time = models.TimeField(
         verbose_name=_('Godzina'),
-        default=datetime.datetime.now().replace(second=0),
     )
 
     client = models.ForeignKey(

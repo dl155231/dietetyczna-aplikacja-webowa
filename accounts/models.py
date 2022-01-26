@@ -21,13 +21,6 @@ class CustomUser(AbstractUser):  # noqa: D101
         verbose_name=_('Szczegóły użytkownika'),
     )
 
-    client = models.OneToOneField(
-        Client,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name=_('Klient'),
-    )
     is_nutritionist = models.BooleanField(_('Czy dietetyk'), default=False)
     nutritionist = models.OneToOneField(
         Nutritionist,
