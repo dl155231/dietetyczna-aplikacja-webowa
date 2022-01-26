@@ -3,10 +3,11 @@
 from django import forms
 
 # Project
-from diet_app.models import Consultations
+from diet_app.models import Consultations, Nutrients
 from diet_app.models import Diet
 from diet_app.models import DietDay
 from diet_app.models import Nutritionist
+from diet_app.models import Diet, DietDay, Product
 
 
 class DietCreatorForm(forms.ModelForm):  # noqa: D101
@@ -17,6 +18,7 @@ class DietCreatorForm(forms.ModelForm):  # noqa: D101
 
     nutritionist = forms.IntegerField(
         widget=forms.HiddenInput,
+        required=False,
     )
 
     def clean_nutritionist(self):  # noqa: D102
@@ -53,6 +55,45 @@ class DayDietForm(forms.ModelForm):  # noqa: D101
     class Meta:  # noqa: D106
         model = DietDay
         fields = '__all__'
+
+
+class ProductForm(forms.ModelForm):
+
+    def __init__(self, diet_day, *args, **kwargs):  # noqa: D107
+        super().__init__(*args, **kwargs)
+        self.diet_day = diet_day
+
+    diet_day = forms.IntegerField(
+        required=False,
+        widget=forms.HiddenInput,
+    )
+
+    def clean_diet_day(self):
+        return self.diet_day
+
+    class Meta:  # noqa: D106
+        model = Product
+        fields = '__all__'
+
+
+class NutrientsForm(forms.ModelForm):
+
+    def __init__(self, product, *args, **kwargs):  # noqa: D107
+        super().__init__(*args, **kwargs)
+        self.product = product
+
+    product = forms.IntegerField(
+        required=False,
+        widget=forms.HiddenInput,
+    )
+
+    def clean_product(self):
+        return self.product
+
+    class Meta:  # noqa: D106
+        model = Nutrients
+        fields = '__all__'
+
 
 
 class ConsultationsForm(forms.ModelForm):  # noqa: D101

@@ -1,4 +1,16 @@
-* {
+form {
+  color: greenyellow;
+  input {
+    background-color: black;
+    color: greenyellow;
+  }
+}
+
+option {
+  color: black;
+}
+
+h1, h2, h3, h4, h5, h6 {
   color: greenyellow;
 }
 
@@ -64,8 +76,4 @@ html {
     text-decoration: none;
     color: green;
   }
-}
-
-* {
-  color: greenyellow;
 }

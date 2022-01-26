@@ -11,7 +11,6 @@ from diet_app.models import Nutrients
 from diet_app.models import Nutritionist
 from diet_app.models import Product
 from diet_app.models import UserDetails
-from diet_app.models import Vitamin
 from diet_app.models import WaterConsumption
 
 
@@ -22,11 +21,6 @@ class DietAdmin(admin.ModelAdmin):  # noqa: D101
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):  # noqa: D101
-    pass
-
-
-@admin.register(Vitamin)
-class VitaminAdmin(admin.ModelAdmin):  # noqa: D101
     pass
 
 

@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <form method="post">
+  {% csrf_token %}
+    {{ form_product }}
+  <button type="submit">Zapisz</button>
+  </form>
+  <a href="{% url 'diet:nutrients_creator' product_id diet_day_id %}" class="btn btn-primary">Wartości odżywcze</a>
+{% endblock content %}

@@ -13,10 +13,9 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 
 # Project
-from diet_app.forms import ConsultationsForm
-from diet_app.forms import DayDietForm
-from diet_app.forms import DietCreatorForm
-from diet_app.models import Consultations
+from diet_app.forms import ConsultationsForm, NutrientsForm
+from diet_app.models import Consultations, Nutrients
+from diet_app.forms import DietCreatorForm, DayDietForm, ProductForm
 from diet_app.models import Diet
 from diet_app.models import DietDay
 from diet_app.models import Product
@@ -147,3 +146,50 @@ class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
     def get_success_url(self):  # noqa: D102
         messages.success(self.request, 'Wysłano zgłoszenie')
         return reverse_lazy('diet:client_diet')
+
+
+def product_creator(request, diet_day_id, product_id):
+    product = Product.objects.get(id=product_id)
+    diet_day = DietDay.objects.get(id=diet_day_id)
+    if request.method == 'GET':
+        form_product = ProductForm(instance=product, diet_day=diet_day)
+    if request.method == 'POST':
+        form_product = ProductForm(data=request.POST, instance=product, diet_day=diet_day)
+        if form_product.is_valid():
+            form_product.save()
+            return redirect('diet:products_list', diet_day_id)
+    return render(request, 'product_creator.html', {'form_product': form_product, 'product_id': product_id, 'diet_day_id': diet_day_id})
+
+
+def product_creator_first(request, diet_day_id):
+    diet_day = DietDay.objects.get(id=diet_day_id)
+    if request.method == 'GET':
+        form_product = ProductForm(diet_day=diet_day)
+    if request.method == 'POST':
+        form_product = ProductForm(data=request.POST, diet_day=diet_day)
+        if form_product.is_valid():
+            form_product.save()
+            return redirect('diet:products_list', diet_day_id)
+    return render(request, 'product_creator_first.html', {'form_product': form_product})
+
+
+def nutrients_creator(request, product_id, diet_day_id):
+    product = Product.objects.get(id=product_id)
+    if Nutrients.objects.filter(product_id=product_id).exists():
+        nutrients = Nutrients.objects.get(product_id=product_id)
+        if request.method == 'GET':
+            form_nutrients = NutrientsForm(instance=nutrients, product=product)
+        if request.method == 'POST':
+            form_nutrients = NutrientsForm(data=request.POST, instance=nutrients, product=product)
+            if form_nutrients.is_valid():
+                form_nutrients.save()
+                return redirect('diet:products_list', diet_day_id)
+    else:
+        if request.method == 'GET':
+            form_nutrients = NutrientsForm(product=product)
+        if request.method == 'POST':
+            form_nutrients = NutrientsForm(data=request.POST, product=product)
+            if form_nutrients.is_valid():
+                form_nutrients.save()
+                return redirect('diet:products_list', diet_day_id)
+    return render(request, 'nutrients_creator.html', {'form_nutrients': form_nutrients})
