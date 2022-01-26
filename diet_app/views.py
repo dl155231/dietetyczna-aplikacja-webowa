@@ -15,8 +15,9 @@ from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
 # 3rd-party
-from diet_app.forms import ConsultationsForm, DayDietFormEdit
+from diet_app.forms import ConsultationsForm
 from diet_app.forms import DayDietForm
+from diet_app.forms import DayDietFormEdit
 from diet_app.forms import DietCreatorForm
 from diet_app.forms import NutrientsForm
 from diet_app.forms import ProductForm
