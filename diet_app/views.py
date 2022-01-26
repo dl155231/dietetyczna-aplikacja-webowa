@@ -15,7 +15,7 @@ from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
 # 3rd-party
-from diet_app.forms import ConsultationsForm
+from diet_app.forms import ConsultationsForm, DayDietFormEdit
 from diet_app.forms import DayDietForm
 from diet_app.forms import DietCreatorForm
 from diet_app.forms import NutrientsForm
@@ -114,9 +114,9 @@ def diet_day_creator(request, diet_id, diet_day_id):  # noqa: D103
     diet_day = DietDay.objects.get(diet_id=diet_id, id=diet_day_id)
     diet = Diet.objects.get(id=diet_id)
     if request.method == 'GET':
-        form_diet_day = DayDietForm(instance=diet_day, diet=diet)
+        form_diet_day = DayDietFormEdit(instance=diet_day, diet=diet, diet_day=diet_day)
     if request.method == 'POST':
-        form_diet_day = DayDietForm(data=request.POST, instance=diet_day, diet=diet)
+        form_diet_day = DayDietFormEdit(data=request.POST, instance=diet_day, diet=diet, diet_day=diet_day)
         if form_diet_day.is_valid():
             form_diet_day.save()
             return redirect('diet:diet_days', diet_id)

@@ -74,4 +74,11 @@ html {
   color: green;
 }
 
+#signout-modal .modal-body {
+  color: black;
+}
+#signout-modal .modal-title {
+  color: black;
+}
+
 /*# sourceMappingURL=base.css.map */

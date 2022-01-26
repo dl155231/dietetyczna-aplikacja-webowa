@@ -52,7 +52,37 @@ class DayDietForm(forms.ModelForm):  # noqa: D101
         day = self.cleaned_data.get('day')
         if DietDay.objects.filter(day=day, diet_id=self.diet.id).exists():
             raise forms.ValidationError('Ta data jest już zajęta!')
+        if day > self.diet.day_end or day < self.diet.day_end:
+            raise forms.ValidationError('Ta data jest ustaloną długością diety!')
         return day
+
+    class Meta:  # noqa: D106
+        model = DietDay
+        fields = '__all__'
+
+
+class DayDietFormEdit(forms.ModelForm):  # noqa: D101
+
+    def __init__(self, diet, diet_day, *args, **kwargs):  # noqa: D107
+        super().__init__(*args, **kwargs)
+        self.diet = diet
+        self.diet_day = diet_day
+
+    diet = forms.IntegerField(
+        required=False,
+        widget=forms.HiddenInput,
+    )
+
+    day = forms.DateField(
+        required=False,
+        widget=forms.HiddenInput,
+    )
+
+    def clean_diet(self):  # noqa: D102
+        return self.diet
+
+    def clean_day(self):  # noqa: D102
+        return self.diet_day.day
 
     class Meta:  # noqa: D106
         model = DietDay
