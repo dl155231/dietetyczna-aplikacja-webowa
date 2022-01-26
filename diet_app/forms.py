@@ -2,12 +2,14 @@
 # Django
 from django import forms
 from django.utils import timezone
+
 # Project
-from diet_app.models import Consultations, Nutrients
+from diet_app.models import Consultations
 from diet_app.models import Diet
 from diet_app.models import DietDay
+from diet_app.models import Nutrients
 from diet_app.models import Nutritionist
-from diet_app.models import Diet, DietDay, Product
+from diet_app.models import Product
 
 
 class DietCreatorForm(forms.ModelForm):  # noqa: D101
@@ -93,7 +95,6 @@ class NutrientsForm(forms.ModelForm):
     class Meta:  # noqa: D106
         model = Nutrients
         fields = '__all__'
-
 
 
 class ConsultationsForm(forms.ModelForm):  # noqa: D101

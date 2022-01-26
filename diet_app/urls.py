@@ -4,7 +4,6 @@ from django.urls import path
 
 # Project
 from diet_app.views import ConsultationsCreateView, ConsultationsUpdateView
-from diet_app.views import ConsultationsCreateView, nutrients_creator
 from diet_app.views import ConsultationsListView
 from diet_app.views import MainView
 from diet_app.views import NotificationListView
@@ -15,6 +14,9 @@ from diet_app.views import diet_day_creator_first
 from diet_app.views import diet_days_list
 from diet_app.views import diet_list
 from diet_app.views import main_page_redirect
+from diet_app.views import nutrients_creator
+from diet_app.views import product_creator
+from diet_app.views import product_creator_first
 from diet_app.views import products_list
 
 app_name = 'diet'
@@ -33,6 +35,7 @@ urlpatterns = [
     path('products-list-creator/<diet_day_id>/<product_id>/', product_creator, name='products_creator'),
     path('diet-days-creator/<diet_id>/<diet_day_id>/', diet_day_creator, name='diet_days_creator'),
     path('notification-list/', NotificationListView.as_view(), name='notification_list'),
-    path('consultations/list/', ConsultationsListView.as_view(), name='consultation_list'),
-    path('consultations/create/', ConsultationsCreateView.as_view(), name='consultation_create'),
+    path('consultations/create/', ConsultationsCreateView.as_view(), name='consultations_create'),
+    path('consultations/list/', ConsultationsListView.as_view(), name='consultations_list'),
+    path('consultations/edit/<pk>/', ConsultationsUpdateView.as_view(), name='consultations_edit'),
 ]

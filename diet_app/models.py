@@ -31,7 +31,7 @@ class Nutritionist(models.Model):  # noqa: D101
         verbose_name_plural = _('Dietetycy')
 
     def __str__(self):  # noqa: D105
-        return f'{self.customuser}'
+        return f'{self.id}'
 
 
 class Diet(models.Model):  # noqa: D101

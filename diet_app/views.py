@@ -8,16 +8,21 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
+from django.views.generic import UpdateView
 
 # Project
-from diet_app.forms import ConsultationsForm, NutrientsForm
-from diet_app.models import Consultations, Nutrients
-from diet_app.forms import DietCreatorForm, DayDietForm, ProductForm
+from diet_app.forms import ConsultationsForm
+from diet_app.forms import DayDietForm
+from diet_app.forms import DietCreatorForm
+from diet_app.forms import NutrientsForm
+from diet_app.forms import ProductForm
+from diet_app.models import Consultations
 from diet_app.models import Diet
 from diet_app.models import DietDay
+from diet_app.models import Nutrients
 from diet_app.models import Product
 
 
@@ -149,6 +154,7 @@ class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        kwargs['client'] = self.request.user.client
         return kwargs
 
     def form_valid(self, form):  # noqa: D102
@@ -156,14 +162,15 @@ class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
         form.instance.client = form.cleaned_data['client']
         return super().form_valid(form)
 
-    class ConsultationsUpdateView(LoginRequiredMixin, UpdateView):  # noqa: D101
-        template_name = 'consultations_edit.html'
-        model = Consultations
-        form_class = ConsultationsForm
 
-        def get_success_url(self):  # noqa: D102
-            messages.success(self.request, 'Zmiany zapisane')
-            return reverse_lazy('diet:client_diet')
+class ConsultationsUpdateView(LoginRequiredMixin, UpdateView):  # noqa: D101
+    template_name = 'consultations_edit.html'
+    model = Consultations
+    form_class = ConsultationsForm
+
+    def get_success_url(self):  # noqa: D102
+        messages.success(self.request, 'Zmiany zapisane')
+        return reverse_lazy('diet:client_diet')
 
 
 def product_creator(request, diet_day_id, product_id):
@@ -176,7 +183,9 @@ def product_creator(request, diet_day_id, product_id):
         if form_product.is_valid():
             form_product.save()
             return redirect('diet:products_list', diet_day_id)
-    return render(request, 'product_creator.html', {'form_product': form_product, 'product_id': product_id, 'diet_day_id': diet_day_id})
+    return render(request, 'product_creator.html',
+                  {'form_product': form_product, 'product_id': product_id,
+                   'diet_day_id': diet_day_id})
 
 
 def product_creator_first(request, diet_day_id):
