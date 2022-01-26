@@ -14,6 +14,27 @@ from django.utils.translation import gettext as _
 # User = get_user_model()
 
 
+class Nutritionist(models.Model):  # noqa: D101
+    bank_account = models.CharField(
+        verbose_name=_('Konto bankowe'),
+        max_length=255,
+    )
+
+    competence_proof = models.FileField(
+        upload_to='competence/',
+        verbose_name=_('Potwierdzenie kompetencji'),
+        null=True,  # tylko na potrzeby prezentacji projektu
+        blank=True,  # tylko na potrzeby prezentacji projektu
+    )
+
+    class Meta:  # noqa: D106
+        verbose_name = _('Dietetyk')
+        verbose_name_plural = _('Dietetycy')
+
+    def __str__(self):  # noqa: D105
+        return self.bank_account
+
+
 class Diet(models.Model):  # noqa: D101
 
     meal_count = models.IntegerField(
@@ -46,6 +67,14 @@ class Diet(models.Model):  # noqa: D101
         max_length=255,
         verbose_name=_('Nazwa diety'),
         null=True,
+    )
+
+    nutritionist = models.ForeignKey(
+        Nutritionist,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Dietetyk'),
     )
 
     class Meta:  # noqa: D106
@@ -174,46 +203,13 @@ class Nutrients(models.Model):  # noqa: D101
 
 class Client(models.Model):  # noqa: D101
     phone_number = models.CharField(max_length=20)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name=_('Klient'),
-    )
 
     class Meta:  # noqa: D106
         verbose_name = _('Klient')
         verbose_name_plural = _('Klienci')
 
     def __str__(self):  # noqa: D105
-        return self.user
-
-
-class Nutritionist(models.Model):  # noqa: D101
-    bank_account = models.IntegerField(
-        verbose_name=_('Konto bankowe'),
-    )
-
-    competence_proof = models.FileField(
-        upload_to='competence/',
-        verbose_name=_('Potwierdzenie kompetencji'),
-    )
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name=_('Użytkownik'),
-    )
-
-    class Meta:  # noqa: D106
-        verbose_name = _('Dietetyk')
-        verbose_name_plural = _('Dietetycy')
-
-    def __str__(self):  # noqa: D105
-        return self.user
+        return self.phone_number
 
 
 class UserDetails(models.Model):  # noqa: D101

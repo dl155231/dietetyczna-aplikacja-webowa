@@ -1,7 +1,10 @@
-# from diet_app.utils import check_user
-#
-#
-# def extra_content(request):
-#     return {
-#         'is_client': check_user(request.user),
-#     }
+from accounts.models import CustomUser
+
+
+def extra_content(request):
+    is_client = True
+    if request.user.nutritionist:
+        is_client = False
+    return {
+        'is_client': is_client,
+    }

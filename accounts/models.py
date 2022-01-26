@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # Project
-from diet_app.models import UserDetails
+from diet_app.models import UserDetails, Client, Nutritionist
 
 
 class CustomUser(AbstractUser):  # noqa: D101
@@ -17,4 +17,20 @@ class CustomUser(AbstractUser):  # noqa: D101
         blank=True,
         on_delete=models.SET_NULL,
         verbose_name=_('Szczegóły użytkownika'),
+    )
+
+    client = models.OneToOneField(
+        Client,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Klient'),
+    )
+
+    nutritionist = models.OneToOneField(
+        Nutritionist,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Dietetyk'),
     )
