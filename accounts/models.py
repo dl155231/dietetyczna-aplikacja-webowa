@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# Project
+# 3rd-party
 from diet_app.models import Client
 from diet_app.models import Nutritionist
 from diet_app.models import UserDetails

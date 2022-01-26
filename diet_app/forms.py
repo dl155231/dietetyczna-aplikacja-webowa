@@ -3,7 +3,7 @@
 from django import forms
 from django.utils import timezone
 
-# Project
+# 3rd-party
 from diet_app.models import Consultations
 from diet_app.models import Diet
 from diet_app.models import DietDay
@@ -95,6 +95,7 @@ class NutrientsForm(forms.ModelForm):
     class Meta:  # noqa: D106
         model = Nutrients
         fields = '__all__'
+
 
 
 class ConsultationsForm(forms.ModelForm):  # noqa: D101

@@ -2,10 +2,11 @@
 # Django
 from django.urls import path
 
-# Project
-from diet_app.views import ConsultationsCreateView, ConsultationsUpdateView
+# 3rd-party
+from diet_app.views import ConsultationsCreateView
 from diet_app.views import ConsultationsListView
-from diet_app.views import MainView
+from diet_app.views import ConsultationsUpdateView
+from diet_app.views import DietUserView
 from diet_app.views import NotificationListView
 from diet_app.views import diet_creator
 from diet_app.views import diet_creator_first
@@ -22,7 +23,7 @@ from diet_app.views import products_list
 app_name = 'diet'
 urlpatterns = [
     path('', main_page_redirect, name='main_page_redirect'),
-    path('home/', MainView.as_view(), name='client_diet'),
+    path('home/', DietUserView.as_view(), name='client_diet'),
     path('notification-list/', NotificationListView.as_view(), name='notification_list'),
     path('diet-list/<nut_id>/', diet_list, name='diet_list'),
     path('diet-creator-first/', diet_creator_first, name='diet_creator_first'),

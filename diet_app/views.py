@@ -5,6 +5,7 @@ from datetime import date
 # Django
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -13,7 +14,7 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
-# Project
+# 3rd-party
 from diet_app.forms import ConsultationsForm
 from diet_app.forms import DayDietForm
 from diet_app.forms import DietCreatorForm
@@ -26,7 +27,7 @@ from diet_app.models import Nutrients
 from diet_app.models import Product
 
 
-class MainView(LoginRequiredMixin, TemplateView):  # noqa: D101
+class DietUserView(LoginRequiredMixin, TemplateView):  # noqa: D101
     template_name = 'client_diet.html'
 
     def get_context_data(self, **kwargs):  # noqa: D102
@@ -74,6 +75,13 @@ def diet_list(request, nut_id):  # noqa: D103
 
 def diet_creator(request, diet_id):  # noqa: D103
     diet = Diet.objects.get(id=diet_id)
+    try:
+        user_nut_id = request.user.nutritionist.id
+    except request.useruser.nutritionist.DoesNotExist:
+        raise Http404
+
+    if diet.nutritionist.id != user_nut_id:
+        raise Http404
     if request.method == 'GET':
         form_diet = DietCreatorForm(instance=diet, user=request.user)
     if request.method == 'POST':
@@ -184,8 +192,8 @@ def product_creator(request, diet_day_id, product_id):
             form_product.save()
             return redirect('diet:products_list', diet_day_id)
     return render(request, 'product_creator.html',
-                  {'form_product': form_product, 'product_id': product_id,
-                   'diet_day_id': diet_day_id})
+                    {'form_product': form_product, 'product_id': product_id, 'diet_day_id': diet_day_id},
+                  )
 
 
 def product_creator_first(request, diet_day_id):
