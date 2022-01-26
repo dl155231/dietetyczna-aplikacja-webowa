@@ -3,7 +3,7 @@
 from django.urls import path
 
 # 3rd-party
-from diet_app.views import ConsultationsCreateView
+from diet_app.views import ConsultationsCreateView, AcceptedConsultationsListView
 from diet_app.views import ConsultationsListView
 from diet_app.views import ConsultationsUpdateView
 from diet_app.views import DietUserView
@@ -39,4 +39,5 @@ urlpatterns = [
     path('consultations/create/', ConsultationsCreateView.as_view(), name='consultations_create'),
     path('consultations/list/', ConsultationsListView.as_view(), name='consultations_list'),
     path('consultations/edit/<pk>/', ConsultationsUpdateView.as_view(), name='consultations_edit'),
+    path('consultations/accepted/list/', AcceptedConsultationsListView.as_view(), name='consultations_accepted_list'),
 ]

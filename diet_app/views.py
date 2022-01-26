@@ -117,7 +117,8 @@ def diet_day_creator(request, diet_id, diet_day_id):  # noqa: D103
     if request.method == 'GET':
         form_diet_day = DayDietFormEdit(instance=diet_day, diet=diet, diet_day=diet_day)
     if request.method == 'POST':
-        form_diet_day = DayDietFormEdit(data=request.POST, instance=diet_day, diet=diet, diet_day=diet_day)
+        form_diet_day = DayDietFormEdit(data=request.POST, instance=diet_day, diet=diet,
+                                        diet_day=diet_day)
         if form_diet_day.is_valid():
             form_diet_day.save()
             return redirect('diet:diet_days', diet_id)
@@ -182,6 +183,18 @@ class ConsultationsUpdateView(LoginRequiredMixin, UpdateView):  # noqa: D101
         return reverse_lazy('diet:client_diet')
 
 
+class AcceptedConsultationsListView(LoginRequiredMixin, ListView):
+    model = Consultations
+    template_name = 'accepted_consultations_list.html'
+
+    def get_queryset(self):  # noqa: D102
+        return Consultations.objects.filter(
+            nutritionist=self.request.user.nutritionist,
+            is_accepted=True,
+            client__isnull=False,
+        )
+
+
 def product_creator(request, diet_day_id, product_id):
     product = Product.objects.get(id=product_id)
     diet_day = DietDay.objects.get(id=diet_day_id)
@@ -193,7 +206,8 @@ def product_creator(request, diet_day_id, product_id):
             form_product.save()
             return redirect('diet:products_list', diet_day_id)
     return render(request, 'product_creator.html',
-                    {'form_product': form_product, 'product_id': product_id, 'diet_day_id': diet_day_id},
+                  {'form_product': form_product, 'product_id': product_id,
+                   'diet_day_id': diet_day_id},
                   )
 
 

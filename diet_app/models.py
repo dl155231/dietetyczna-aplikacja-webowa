@@ -303,6 +303,11 @@ class Consultations(models.Model):  # noqa: D101
         verbose_name=_('Dietetyk'),
     )
 
+    is_accepted = models.BooleanField(
+        _('Zaakceptowane'),
+        default=False,
+    )
+
     class Meta:  # noqa: D106
         verbose_name = _('Konsultacja')
         verbose_name_plural = _('Konsultacje')

@@ -131,7 +131,6 @@ class NutrientsForm(forms.ModelForm):
 class ConsultationsForm(forms.ModelForm):  # noqa: D101
     def __init__(self, *args, **kwargs):  # noqa: D107
         client = kwargs.pop('client', None)
-        print(client, 'forms')
         super().__init__(*args, **kwargs)
         self.fields['nutritionist'].queryset = Nutritionist.objects.all()
         self.fields['date'].initial = timezone.localdate()
