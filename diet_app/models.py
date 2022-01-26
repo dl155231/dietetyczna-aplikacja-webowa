@@ -134,24 +134,6 @@ class Product(models.Model):  # noqa: D101
         return str(self.product_name) + '|' + str(self.diet_day)
 
 
-class Vitamin(models.Model):  # noqa: D101
-    name = models.CharField(
-        max_length=255,
-        verbose_name=_('Nazwa'),
-    )
-
-    value = models.FloatField(
-        verbose_name=_('Ilość'),
-    )
-
-    class Meta:  # noqa: D106
-        verbose_name = _('Witamina')
-        verbose_name_plural = _('Witaminy')
-
-    def __str__(self):  # noqa: D105
-        return self.name
-
-
 class Nutrients(models.Model):  # noqa: D101
     carbohydrate = models.IntegerField(
         verbose_name=_('Węglowodany'),
@@ -173,18 +155,17 @@ class Nutrients(models.Model):  # noqa: D101
         verbose_name=_('Cukry'),
     )
 
-    vitamins = models.ManyToManyField(
-        Vitamin,
-        blank=True,
-        default=None,
+    vitamins = models.TextField(
         verbose_name=_('Witaminy'),
+        null=True,
+        blank=True,
     )
 
     fibers = models.IntegerField(
         verbose_name=_('Błonnik'),
     )
 
-    product = models.ForeignKey(
+    product = models.OneToOneField(
         Product,
         null=True,
         blank=True,
@@ -197,7 +178,7 @@ class Nutrients(models.Model):  # noqa: D101
         verbose_name_plural = _('Wartości odżywcze')
 
     def __str__(self):  # noqa: D105
-        return self.product
+        return self.product.product_name
 
 
 class Client(models.Model):  # noqa: D101

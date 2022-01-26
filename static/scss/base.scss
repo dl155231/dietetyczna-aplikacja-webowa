@@ -1,5 +1,9 @@
 form {
   color: greenyellow;
+  input {
+    background-color: black;
+    color: greenyellow;
+  }
 }
 
 option {
@@ -14,10 +18,8 @@ body {
   display: flex;
   flex-flow: column;
   height: 100%;
-  color: greenyellow;
   background-repeat: no-repeat;
   background-image: linear-gradient(to right bottom, #212529, #212529, #212529, #233200);
-  background-color: white;
 }
 
 html {
