@@ -46,7 +46,7 @@ class NotificationListView(TemplateView):
 
 def main_page_redirect(request):
     """That view redirect to individual users's page."""
-    if request.user.nutritionist != None:
+    if not request.user.is_anonymous and request.user.nutritionist != None:
         return  redirect('diet:diet_list', request.user.nutritionist.id)
     return redirect('diet:client_diet')
 
@@ -62,11 +62,10 @@ def diet_list(request, nut_id):
 def diet_creator(request, diet_id):
     diet = Diet.objects.get(id=diet_id)
     if request.method == 'GET':
-        form = DietCreatorForm(instance=diet)
+        form_diet = DietCreatorForm(instance=diet)
     if request.method == 'POST':
-        print('yoyoyo')
-        form = DietCreatorForm(request.POST, instance=diet)
-        if form.is_valid():
-            form.save()
+        form_diet = DietCreatorForm(request.POST, instance=diet)
+        if form_diet.is_valid():
+            form_diet.save()
 
-    return render(request, 'diet_creator.html', {'form': form})
+    return render(request, 'diet_creator.html', {'form_diet': form_diet})
