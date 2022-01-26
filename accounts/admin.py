@@ -14,6 +14,7 @@ class UserAdmin(admin.ModelAdmin):  # noqa: D101
         'email',
         'username',
         'is_staff',
+
     )
 
     fieldsets = (
@@ -36,5 +37,7 @@ class UserAdmin(admin.ModelAdmin):  # noqa: D101
              'is_superuser',
              'groups',
              'user_permissions',
+             'client',
+             'nutritionist',
          )}),
     )

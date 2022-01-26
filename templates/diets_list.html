@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+  <div class="container-fluid w-100 h-100">
+    <div class="row d-flex justify-content-center w-100 h-100 align-items-center">
+    {% for diet in diet_list %}
+      <div class="col-12 d-flex justify-content-center align-items-center">
+        <a href="{% url 'diet:diet_creator' diet.id %}" class="diet-box">{{ diet.user.first_name }} {{ diet.user.last_name }} | {{ diet.name_diet }}</a>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+{% endblock content %}

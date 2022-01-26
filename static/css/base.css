@@ -43,4 +43,19 @@ html {
   font-size: 30px;
 }
 
+.diet-box {
+  color: greenyellow;
+  border: solid greenyellow 2px;
+  border-radius: 40px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 30px;
+  padding: 10px 20px;
+  width: 80%;
+}
+.diet-box:hover {
+  text-decoration: none;
+  color: green;
+}
+
 /*# sourceMappingURL=base.css.map */
