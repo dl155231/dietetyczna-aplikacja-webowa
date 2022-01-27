@@ -6,7 +6,6 @@ $(document).ready(()=>{
         $('body').css('filter', 'grayscale(100%) contrast(200%)');
         $('body').css('background-image', '');
         $('body').css('background-color', 'black');
-        $('a').css('color', 'white');
     }
     swapColor();
     blackWhiteColor();
@@ -32,7 +31,6 @@ const  blackWhiteColor = () =>{
             $('body').css('filter', '');
             $('body').css('background-color', '');
             $('body').css('background-image', 'linear-gradient(to right bottom, #212529, #212529, #212529, #233200)');
-            $('a').removeAttr('style');
             myStorage.removeItem('bw-kolor');
         }
         else {
@@ -40,7 +38,7 @@ const  blackWhiteColor = () =>{
             $('body').css('filter', 'grayscale(100%) contrast(200%)');
             $('body').css('background-image', '');
             $('body').css('background-color', 'black');
-            $('a').css('color', 'white');
+
 
         }
     })

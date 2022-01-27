@@ -253,4 +253,21 @@ html {
   z-index: -1;
 }
 
+.green-bg {
+  background-color: greenyellow !important;
+  color: black !important;
+  border: solid 2px greenyellow;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+.green-bg h3 {
+  color: black !important;
+}
+
+.black-bg {
+  background-color: black;
+  border: solid 2px greenyellow;
+  border-radius: 20px;
+}
+
 /*# sourceMappingURL=base.css.map */

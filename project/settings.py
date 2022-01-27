@@ -190,8 +190,8 @@ COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-LOGIN_REDIRECT_URL = 'diet:client_diet'
-LOGOUT_REDIRECT_URL = 'diet:client_diet'
+LOGIN_REDIRECT_URL = 'diet:main_page_redirect'
+LOGOUT_REDIRECT_URL = 'diet:main_page_redirect'
 ACCOUNT_SESSION_REMEMBER = False
 try:
     # Project
