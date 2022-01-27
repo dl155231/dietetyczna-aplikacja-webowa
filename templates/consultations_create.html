@@ -1,16 +1,17 @@
 {% extends 'index.html' %}
 {% load bootstrap5 %}
 {% block content %}
-  <div class="container w-75 d-flex flex-column align-items-center">
-    <h1 class="my-5">Formularz umawiania konsultacji</h1>
-    <form method="post" class="w-50">
+  <div class="container-fluid d-flex justify-content-center">
+  <div class="w-50 mt-5">
+    <form method="post" class="black-form mb-5">
       {% csrf_token %}
-      {% bootstrap_form form %}
-      {% buttons %}
-        <button type="submit" class="btn btn-success">Wyślij</button>
-        <a href="{% url 'diet:client_diet' %}" class="btn btn-danger">Anuluj
-        </a>
-      {% endbuttons %}
+      <h1 class="my-5 text-center">Formularz umawiania konsultacji</h1>
+      {{ form }}
+      <div class="d-flex justify-content-center mt-3">
+        <button type="submit" class="btn btn-green me-5">Wyślij</button>
+        <a href="{% url 'diet:client_diet' %}" class="btn btn-gray ms-5">Anuluj</a>
+      </div>
     </form>
+  </div>
   </div>
 {% endblock %}

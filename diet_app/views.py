@@ -39,12 +39,20 @@ class DietUserView(LoginRequiredMixin, TemplateView):  # noqa: D101
                 context['diet_name'] = diet.name_diet
                 if (date.today() - diet.day_zero).days == 0:
                     context['diet_day'] = 1
+                elif (date.today() - diet.day_zero).days < 0:
+                    context['diet_day'] = 0
                 else:
                     context['diet_day'] = (date.today() - diet.day_zero).days
                 try:
                     context['meals'] = diet.dietday_set.get(day=date.today()).day_meals
                 except DietDay.DoesNotExist:
                     context['meals'] = 'Brak'
+                try:
+                    diet_day = DietDay.objects.get(day=date.today(), diet_id=diet.id)
+                    product_list = Product.objects.filter(diet_day_id=diet_day.id)
+                    context['products'] = product_list
+                except:
+                    context['products'] = None
             except Diet.DoesNotExist:
                 return context
         return context
@@ -61,9 +69,10 @@ class NotificationListView(TemplateView):  # noqa: D101
 
 def main_page_redirect(request):
     """View redirect to individual users page."""
-    if not request.user.is_anonymous and request.user.nutritionist is not None:
-        return redirect('diet:diet_list', request.user.nutritionist.id)
-    return redirect('diet:client_diet')
+    # if not request.user.is_anonymous and request.user.nutritionist is not None:
+    #     return redirect('diet:diet_list', request.user.nutritionist.id)
+    # return redirect('diet:client_diet')
+    return render(request, 'partials/opening_page.html', {})
 
 
 def diet_list(request, nut_id):  # noqa: D103
@@ -244,3 +253,17 @@ def nutrients_creator(request, product_id, diet_day_id):
                 form_nutrients.save()
                 return redirect('diet:products_list', diet_day_id, product.diet_day.diet.id)
     return render(request, 'nutrients_creator.html', {'form_nutrients': form_nutrients, 'diet_day_id': diet_day_id, 'diet_id': product.diet_day.diet.id})
+
+
+class ProductDetailView(TemplateView):
+    template_name = 'product_detail.html'
+
+    def get_context_data(self, **kwargs):  # noqa: D102
+        context = super().get_context_data(**kwargs)
+        product_id = self.kwargs['product_id']
+        try:
+            nutrients = Nutrients.objects.get(product_id=int(product_id))
+        except Nutrients.DoesNotExist:
+            nutrients = None
+        context['nutrients'] = nutrients
+        return context

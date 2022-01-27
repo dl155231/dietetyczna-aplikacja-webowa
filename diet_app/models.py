@@ -31,7 +31,11 @@ class Nutritionist(models.Model):  # noqa: D101
         verbose_name_plural = _('Dietetycy')
 
     def __str__(self):  # noqa: D105
-        return f'{self.id}'
+        try:
+            name = self.customuser.get_full_name()
+        except:
+            name = self.id
+        return str(name)
 
 
 class Diet(models.Model):  # noqa: D101
@@ -178,7 +182,7 @@ class Nutrients(models.Model):  # noqa: D101
         verbose_name_plural = _('Wartości odżywcze')
 
     def __str__(self):  # noqa: D105
-        return self.product.product_name
+        return str(self.product)
 
 
 class Client(models.Model):  # noqa: D101

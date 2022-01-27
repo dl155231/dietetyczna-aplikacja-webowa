@@ -3,7 +3,7 @@
 from django.urls import path
 
 # Project
-from diet_app.views import AcceptedConsultationsListView
+from diet_app.views import AcceptedConsultationsListView, ProductDetailView
 from diet_app.views import ConsultationsCreateView
 from diet_app.views import ConsultationsListView
 from diet_app.views import ConsultationsUpdateView
@@ -28,6 +28,7 @@ urlpatterns = [
     path('notification-list/', NotificationListView.as_view(), name='notification_list'),
     path('diet-list/<nut_id>/', diet_list, name='diet_list'),
     path('diet-creator-first/', diet_creator_first, name='diet_creator_first'),
+    path('product-detail/<product_id>/', ProductDetailView.as_view(), name='product_detail'),
     path('diet-creator/<diet_id>/', diet_creator, name='diet_creator'),
     path('diet-days-list/<diet_id>/', diet_days_list, name='diet_days'),
     path('diet-days-creator-first/<diet_id>/', diet_day_creator_first, name='diet_days_creator_first'),
