@@ -3,14 +3,16 @@
 from django import forms
 from django.utils import timezone
 
-# Project
-from accounts.models import CustomUser
+# 3rd-party
 from diet_app.models import Consultations
 from diet_app.models import Diet
 from diet_app.models import DietDay
 from diet_app.models import Nutrients
 from diet_app.models import Nutritionist
 from diet_app.models import Product
+
+# Project
+from accounts.models import CustomUser
 
 
 class DietCreatorForm(forms.ModelForm):  # noqa: D101
@@ -94,7 +96,7 @@ class DayDietFormEdit(forms.ModelForm):  # noqa: D101
         fields = '__all__'
 
 
-class ProductForm(forms.ModelForm):
+class ProductForm(forms.ModelForm):  # noqa: D101
 
     def __init__(self, diet_day, *args, **kwargs):  # noqa: D107
         super().__init__(*args, **kwargs)
@@ -105,7 +107,7 @@ class ProductForm(forms.ModelForm):
         widget=forms.HiddenInput,
     )
 
-    def clean_diet_day(self):
+    def clean_diet_day(self):  # noqa: D102
         return self.diet_day
 
     class Meta:  # noqa: D106
@@ -113,7 +115,7 @@ class ProductForm(forms.ModelForm):
         fields = '__all__'
 
 
-class NutrientsForm(forms.ModelForm):
+class NutrientsForm(forms.ModelForm):  # noqa: D101
 
     def __init__(self, product, *args, **kwargs):  # noqa: D107
         super().__init__(*args, **kwargs)
@@ -124,7 +126,7 @@ class NutrientsForm(forms.ModelForm):
         widget=forms.HiddenInput,
     )
 
-    def clean_product(self):
+    def clean_product(self):  # noqa: D102
         return self.product
 
     class Meta:  # noqa: D106

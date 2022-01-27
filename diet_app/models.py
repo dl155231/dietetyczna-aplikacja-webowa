@@ -1,7 +1,6 @@
 """API models."""
 
 # Standard Library
-import datetime
 from datetime import date
 
 # Django
@@ -9,7 +8,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
 
-# Project
+# 3rd-party
 from diet_app.utils import present_or_future_date
 
 
@@ -33,7 +32,7 @@ class Nutritionist(models.Model):  # noqa: D101
     def __str__(self):  # noqa: D105
         try:
             name = self.customuser.get_full_name()
-        except:
+        except:  # noqa: E722
             name = self.id
         return str(name)
 
