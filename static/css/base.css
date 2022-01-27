@@ -18,7 +18,6 @@ body {
   display: flex;
   flex-flow: column;
   height: 100%;
-  background-image: linear-gradient(to right bottom, #212529, #212529, #212529, #233200);
   background-attachment: fixed;
   margin: 0;
 }

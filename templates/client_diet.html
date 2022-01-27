@@ -3,17 +3,17 @@
 
 {% block content %}
   <div class="container-fluid h-100">
-    <div class="row h-100 w-100">
-      <div class="col-12 d-flex justify-content-center align-items-center h-100 diet-main">
-        <div class="text-center">
-          <div class="mb-5">
-            <p style="font-size: 70px!important;" class="m-0">{{ diet_day }}</p>
-            <p style="font-size: 20px!important;">Dzień</p>
-          </div>
-          <p style="font-size: 40px!important;">Dieta: {{ diet_name }}</p>
-          <p >Dzisiejsze posiłki:</p>
-          <p>{{ meals |linebreaks }}</p>
-          <p>Produkty:</p>
+    <div class="row h-100 w-100 d-flex justify-content-center align-items-center">
+      <div class="col-12 h-100 diet-main mt-5 text-center">
+
+        <div class="mb-5">
+          <p style="font-size: 70px!important;" class="m-0">{{ diet_day }}</p>
+          <p style="font-size: 20px!important;">Dzień</p>
+        </div>
+        <p style="font-size: 40px!important;">Dieta: {{ diet_name }}</p>
+        <p>Dzisiejsze posiłki:</p>
+        <p>{{ meals |linebreaks }}</p>
+        <p>Produkty:</p>
         {% if products != None %}
           {% for product in products %}
             <a href="{% url 'diet:product_detail' product.id %}" class="diet-href">{{ product.product_name }}</a>
@@ -22,8 +22,8 @@
         {% else %}
           <p>Brak produktów</p>
         {% endif %}
-        </div>
       </div>
+
     </div>
   </div>
 {% endblock content %}
