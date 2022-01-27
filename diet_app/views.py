@@ -14,7 +14,7 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
-# 3rd-party
+# Project
 from diet_app.forms import ConsultationsForm
 from diet_app.forms import DayDietForm
 from diet_app.forms import DayDietFormEdit

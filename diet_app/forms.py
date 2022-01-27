@@ -3,7 +3,8 @@
 from django import forms
 from django.utils import timezone
 
-# 3rd-party
+# Project
+from accounts.models import CustomUser
 from diet_app.models import Consultations
 from diet_app.models import Diet
 from diet_app.models import DietDay
@@ -13,15 +14,19 @@ from diet_app.models import Product
 
 
 class DietCreatorForm(forms.ModelForm):  # noqa: D101
-
-    def __init__(self, user, *args, **kwargs):  # noqa: D107
-        super().__init__(*args, **kwargs)
-        self.user = user
-
     nutritionist = forms.IntegerField(
         widget=forms.HiddenInput,
         required=False,
     )
+
+    def __init__(self, user, *args, **kwargs):  # noqa: D107
+        super().__init__(*args, **kwargs)
+        self.user = user
+        self.fields['user'].queryset = CustomUser.objects.filter(
+            nutritionist=None,
+            client__consultations__is_accepted=True,
+            client__consultations__nutritionist=self.user.nutritionist,
+        ).distinct('pk')
 
     def clean_nutritionist(self):  # noqa: D102
         # nutritionist = self.cleaned_data.get('nutritionist')
@@ -125,7 +130,6 @@ class NutrientsForm(forms.ModelForm):
     class Meta:  # noqa: D106
         model = Nutrients
         fields = '__all__'
-
 
 
 class ConsultationsForm(forms.ModelForm):  # noqa: D101

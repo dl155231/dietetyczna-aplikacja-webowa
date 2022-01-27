@@ -2,8 +2,9 @@
 # Django
 from django.urls import path
 
-# 3rd-party
-from diet_app.views import ConsultationsCreateView, AcceptedConsultationsListView
+# Project
+from diet_app.views import AcceptedConsultationsListView
+from diet_app.views import ConsultationsCreateView
 from diet_app.views import ConsultationsListView
 from diet_app.views import ConsultationsUpdateView
 from diet_app.views import DietUserView
