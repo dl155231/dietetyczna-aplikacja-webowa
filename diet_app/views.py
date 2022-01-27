@@ -152,6 +152,9 @@ class ConsultationsListView(LoginRequiredMixin, ListView):  # noqa: D101
     template_name = 'consultations_list.html'
     model = Consultations
 
+    def get_queryset(self):
+        return Consultations.objects.filter(nutritionist_id=self.request.user.nutritionist.id)
+
 
 class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
     template_name = 'consultations_create.html'
