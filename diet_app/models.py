@@ -105,7 +105,7 @@ class DietDay(models.Model):  # noqa: D101
         verbose_name_plural = _('Dni diety')
 
     def __str__(self):  # noqa: D105
-        return str(self.day) + ' | ' + str(self.diet.name_diet)
+        return str(self.day) + ' | '
 
 
 class Product(models.Model):  # noqa: D101

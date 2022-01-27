@@ -89,8 +89,9 @@ def diet_creator(request, diet_id):  # noqa: D103
         form_diet = DietCreatorForm(data=request.POST, instance=diet, user=request.user)
         if form_diet.is_valid():
             form_diet.save()
+            return redirect('diet:diet_list', request.user.nutritionist.id)
 
-    return render(request, 'diet_creator.html', {'form_diet': form_diet, 'diet_id': diet_id})
+    return render(request, 'diet_creator.html', {'form_diet': form_diet, 'diet_id': diet_id, 'nut_id': user_nut_id})
 
 
 def diet_creator_first(request):  # noqa: D103
@@ -102,7 +103,7 @@ def diet_creator_first(request):  # noqa: D103
             form_diet.save()
             return redirect('diet:diet_list', request.user.nutritionist.id)
 
-    return render(request, 'diet_creator_first.html', {'form_diet': form_diet})
+    return render(request, 'diet_creator_first.html', {'form_diet': form_diet, 'nut_id': request.user.nutritionist.id})
 
 
 def diet_days_list(request, diet_id):  # noqa: D103
@@ -139,13 +140,13 @@ def diet_day_creator_first(request, diet_id):  # noqa: D103
         if form_diet_day.is_valid():
             form_diet_day.save()
             return redirect('diet:diet_days', diet_id)
-    return render(request, 'diet_day_creator_first.html', {'form_diet_day': form_diet_day})
+    return render(request, 'diet_day_creator_first.html', {'form_diet_day': form_diet_day, 'diet_id': diet_id})
 
 
-def products_list(request, diet_day_id):  # noqa: D103
+def products_list(request, diet_day_id, diet_id):  # noqa: D103
     products = Product.objects.filter(diet_day_id=diet_day_id)
     return render(request, 'products_list.html',
-                  {'products': products, 'diet_day_id': diet_day_id})
+                  {'products': products, 'diet_day_id': diet_day_id, 'diet_id': diet_id})
 
 
 class ConsultationsListView(LoginRequiredMixin, ListView):  # noqa: D101
@@ -204,10 +205,10 @@ def product_creator(request, diet_day_id, product_id):
         form_product = ProductForm(data=request.POST, instance=product, diet_day=diet_day)
         if form_product.is_valid():
             form_product.save()
-            return redirect('diet:products_list', diet_day_id)
+            return redirect('diet:products_list', diet_day_id, diet_day.diet.id)
     return render(request, 'product_creator.html',
                   {'form_product': form_product, 'product_id': product_id,
-                   'diet_day_id': diet_day_id},
+                   'diet_day_id': diet_day_id, 'diet_id': diet_day.diet.id},
                   )
 
 
@@ -219,8 +220,8 @@ def product_creator_first(request, diet_day_id):
         form_product = ProductForm(data=request.POST, diet_day=diet_day)
         if form_product.is_valid():
             form_product.save()
-            return redirect('diet:products_list', diet_day_id)
-    return render(request, 'product_creator_first.html', {'form_product': form_product})
+            return redirect('diet:products_list', diet_day_id, diet_day.diet.id)
+    return render(request, 'product_creator_first.html', {'form_product': form_product, 'diet_day_id': diet_day_id, 'diet_id': diet_day.diet.id})
 
 
 def nutrients_creator(request, product_id, diet_day_id):
@@ -233,7 +234,7 @@ def nutrients_creator(request, product_id, diet_day_id):
             form_nutrients = NutrientsForm(data=request.POST, instance=nutrients, product=product)
             if form_nutrients.is_valid():
                 form_nutrients.save()
-                return redirect('diet:products_list', diet_day_id)
+                return redirect('diet:products_list', diet_day_id, product.diet_day.diet.id)
     else:
         if request.method == 'GET':
             form_nutrients = NutrientsForm(product=product)
@@ -241,5 +242,5 @@ def nutrients_creator(request, product_id, diet_day_id):
             form_nutrients = NutrientsForm(data=request.POST, product=product)
             if form_nutrients.is_valid():
                 form_nutrients.save()
-                return redirect('diet:products_list', diet_day_id)
-    return render(request, 'nutrients_creator.html', {'form_nutrients': form_nutrients})
+                return redirect('diet:products_list', diet_day_id, product.diet_day.diet.id)
+    return render(request, 'nutrients_creator.html', {'form_nutrients': form_nutrients, 'diet_day_id': diet_day_id, 'diet_id': product.diet_day.diet.id})
