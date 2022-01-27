@@ -1,13 +1,17 @@
 {% extends 'index.html' %}
 {% load bootstrap5 %}
 {% block content %}
-  <div class="container w-75 d-flex flex-column align-items-center">
-    <h1>Edycja zgłoszenia nr {{ object.id }}</h1>
-    <form method="post" class="w-50">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-      <button type="submit" class="btn btn-success">Zapisz</button>
-      <button type="button" class="btn btn-danger" onclick="window.history.back();">Anuluj</button>
-    </form>
+  <div class="container-fluid d-flex justify-content-center">
+    <div class="w-50 mt-5">
+      <form method="post" class="black-form mb-5">
+        {% csrf_token %}
+        <h1 class="my-5 text-center">Edycja zgłoszenia nr {{ object.id }}</h1>
+        {{ form }}
+        <div class="d-flex justify-content-center mt-3">
+          <button type="submit" class="btn btn-green me-5">Zapisz</button>
+          <button type="button" class="btn btn-gray ms-5" onclick="window.history.back();">Anuluj</button>
+        </div>
+      </form>
+    </div>
   </div>
 {% endblock %}

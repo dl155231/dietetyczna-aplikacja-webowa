@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <div class="container-fluid h-100">
+    <div class="text-center mt-5 mb-5  diet-main">
+    {% if nutrients != None %}
+      <h1 class="mb-5">Wartości odżywcze:</h1>
+      <p>Węglowodany: {{ nutrients.carbohydrate }}g</p>
+      <p>Białko: {{ nutrients.proteins }}g</p>
+      <p>Tłuszcze: {{ nutrients.total_fat }}g</p>
+      <p>Tłuszcze nasycone: {{ nutrients.saturated_fat }}g</p>
+      <p>Cukry: {{ nutrients.sugars }}g</p>
+      <p>Witaminy: {{ nutrients.vitamins }}</p>
+      <p>Błonnik: {{ nutrients.fibers }}g</p>
+    {% else %}
+      <h1>Brak danych</h1>
+    {% endif %}
+    </div>
+  </div>
+{% endblock content %}

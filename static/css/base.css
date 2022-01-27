@@ -18,8 +18,8 @@ body {
   display: flex;
   flex-flow: column;
   height: 100%;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(to right bottom, #212529, #212529, #212529, #233200);
+  background-attachment: fixed;
+  margin: 0;
 }
 
 html {
@@ -79,6 +79,171 @@ html {
 }
 #signout-modal .modal-title {
   color: black;
+}
+
+.black-form {
+  display: flex;
+  flex-direction: column;
+}
+.black-form button {
+  font-size: 20px;
+}
+.black-form a {
+  font-size: 20px;
+}
+.black-form label {
+  font-size: 20px;
+}
+.black-form input {
+  margin-bottom: 30px;
+  border: 2px solid greenyellow;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: black !important;
+  color: greenyellow !important;
+}
+.black-form textarea {
+  background-color: black;
+  border: solid 2px greenyellow;
+  border-radius: 20px;
+  color: greenyellow;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+}
+.black-form select {
+  margin-bottom: 30px;
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  -moz-padding-start: calc(0.75rem - 3px);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: greenyellow;
+  background-color: black;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='greenyellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border: 1px solid greenyellow;
+  border-radius: 20px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.btn-blue {
+  color: black;
+  background-color: dodgerblue;
+  border: solid 2px dodgerblue;
+  border-radius: 15px;
+  padding: 10px 40px;
+}
+.btn-blue:hover {
+  color: dodgerblue;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: dodgerblue;
+}
+
+.btn-green {
+  color: black;
+  background-color: greenyellow;
+  border: solid 2px greenyellow;
+  border-radius: 15px;
+  padding: 10px 40px;
+}
+.btn-green:hover {
+  color: greenyellow;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: greenyellow;
+}
+
+.btn-gray {
+  color: black;
+  background-color: lightslategray;
+  border: solid 2px lightslategray;
+  border-radius: 15px;
+  padding: 10px 40px;
+}
+.btn-gray:hover {
+  color: lightslategray;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: lightslategray;
+}
+
+.btn-orange {
+  color: black;
+  background-color: orange;
+  border: solid 2px orange;
+  border-radius: 15px;
+  padding: 10px 40px;
+}
+.btn-orange:hover {
+  color: orange;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: orange;
+}
+
+#swap-color {
+  font-size: 15px;
+  padding: 10px;
+}
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    filter: hue-rotate(3600deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    filter: hue-rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+}
+
+.diet-href {
+  color: green;
+  text-decoration: none;
+}
+.diet-href:hover {
+  text-decoration: none;
+  color: darkgreen;
+}
+
+.logos-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
 }
 
 /*# sourceMappingURL=base.css.map */

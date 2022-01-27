@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 
   <link href="{% static 'bootstrap/css/bootstrap.min.css' %}"
@@ -25,7 +26,7 @@
 
   <title>{% block title %}Delikwęt{% endblock %}</title>
 </head>
-<body>
+<body class="" style="background-image: linear-gradient(to right bottom, #212529, #212529, #212529, #233200);">
 
 
   {% if is_client %}
@@ -41,6 +42,7 @@
 {% endblock content %}
 {% include 'signout_modal.html' %}
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
 
 {% block extra_js %}
 {% endblock extra_js %}

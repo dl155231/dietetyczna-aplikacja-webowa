@@ -4,13 +4,15 @@
 {% block content %}
   <div class="container-fluid w-100 h-100">
     <div class="row ">
+      <h1 class="text-center mt-5">Lista produktów dnia diety</h1>
       <div class="col-12 d-flex justify-content-center mt-5">
-        <a href="{% url 'diet:product_creator_first' diet_day_id %}" class="btn btn-info">Dodaj dietę</a>
+        <a href="{% url 'diet:diet_days_creator' diet_id diet_day_id %}" class="btn btn-gray me-5">Powrót</a>
+        <a href="{% url 'diet:product_creator_first' diet_day_id %}" class="btn btn-green ms-5">Dodaj produkt</a>
       </div>
     </div>
     <div class="row d-flex justify-content-center w-100 mt-5">
     {% for product in products %}
-      <div class="col-12 d-flex justify-content-center align-items-center">
+      <div class="col-12 d-flex justify-content-center align-items-center mb-3">
         <a href="{% url 'diet:products_creator' diet_day_id product.id %}" class="diet-box">{{ product.product_name }}</a>
       </div>
     {% endfor %}

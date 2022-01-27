@@ -1,7 +1,6 @@
 """API models."""
 
 # Standard Library
-import datetime
 from datetime import date
 
 # Django
@@ -9,7 +8,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
 
-# Project
+# 3rd-party
 from diet_app.utils import present_or_future_date
 
 
@@ -31,7 +30,11 @@ class Nutritionist(models.Model):  # noqa: D101
         verbose_name_plural = _('Dietetycy')
 
     def __str__(self):  # noqa: D105
-        return f'{self.id}'
+        try:
+            name = self.customuser.get_full_name()
+        except:  # noqa: E722
+            name = self.id
+        return str(name)
 
 
 class Diet(models.Model):  # noqa: D101
@@ -105,7 +108,7 @@ class DietDay(models.Model):  # noqa: D101
         verbose_name_plural = _('Dni diety')
 
     def __str__(self):  # noqa: D105
-        return str(self.day) + ' | ' + str(self.diet.name_diet)
+        return str(self.day) + ' | '
 
 
 class Product(models.Model):  # noqa: D101
@@ -178,7 +181,7 @@ class Nutrients(models.Model):  # noqa: D101
         verbose_name_plural = _('Wartości odżywcze')
 
     def __str__(self):  # noqa: D105
-        return self.product.product_name
+        return str(self.product)
 
 
 class Client(models.Model):  # noqa: D101
