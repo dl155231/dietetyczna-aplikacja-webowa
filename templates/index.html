@@ -28,7 +28,6 @@
 </head>
 <body class="" style="background-image: linear-gradient(to right bottom, #212529, #212529, #212529, #233200);">
 
-
   {% if is_client %}
     {% include 'partials/navbar_client.html' %}
   {% else %}
@@ -37,14 +36,21 @@
 
 
 {% include "messages.html" %}
-
+<div id="particles-js"></div>
 {% block content %}
 {% endblock content %}
 {% include 'signout_modal.html' %}
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/particles.min.js' %}"></script>
+
 
 {% block extra_js %}
+  <script>
+  particlesJS.load('particles-js', '{% static 'particlesjs-config.json' %}', function() {
+    console.log('callback - particles.js config loaded');
+  });
+</script>
 {% endblock extra_js %}
 
 </body>
