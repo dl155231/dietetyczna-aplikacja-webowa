@@ -5,11 +5,11 @@
   <div class="container-fluid w-100 h-100">
     <div class="row ">
       <h1 class="text-center mt-5">Lista diet</h1>
-      <div class="col-12 d-flex justify-content-center mt-5">
+      <div class="col-12 d-flex justify-content-center mt-5 my-0">
         <a href="{% url 'diet:diet_creator_first' %}" class="btn btn-green">Dodaj dietę</a>
       </div>
     </div>
-    <div class="row d-flex justify-content-center w-100 mt-5">
+    <div class="row d-flex justify-content-center w-100 mt-5 m-0">
     {% for diet in diet_list %}
       <div class="col-12 d-flex justify-content-center align-items-center mb-3">
         <a href="{% url 'diet:diet_creator' diet.id %}" class="diet-box">{{ diet.user.first_name }} {{ diet.user.last_name }} | {{ diet.name_diet }}</a>

@@ -2,18 +2,25 @@
 
 {% block content %}
   <div class="container-fluid d-flex justify-content-center">
-  <div class="w-50 mt-5">
-  <form method="post" class="black-form mb-5">
-  {% csrf_token %}
-    <h1 class="my-5 text-center">Edycja produktu dnia diety</h1>
-    {{ form_product }}
-  <div class="d-flex justify-content-center mt-3">
-          <a href="{% url 'diet:products_list' diet_day_id diet_id %}" class="btn btn-gray me-5">Powrót</a>
-          <button type="submit" class="btn btn-blue ms-5 me-5">Zapisz</button>
-          <a href="{% url 'diet:nutrients_creator' product_id diet_day_id %}" class="btn btn-green ms-5">Wartości odżywcze</a>
+    <div class="w-50 mt-5">
+      <form method="post" class="black-form mb-5">
+        {% csrf_token %}
+        <h1 class="my-5 text-center">Edycja produktu dnia diety</h1>
+        {{ form_product }}
+        <div class=" row d-flex justify-content-center mt-3">
+          <div class="col-12 col-lg-4 mt-2 my-2 d-flex justify-content-center">
+            <a href="{% url 'diet:products_list' diet_day_id diet_id %}" class="btn btn-gray">Powrót</a>
+          </div>
+          <div class="col-12 col-lg-4 mt-2 my-2 d-flex justify-content-center">
+            <button type="submit" class="btn btn-blue">Zapisz</button>
+          </div>
+          <div class="col-12 col-lg-4 mt-2 my-2 d-flex justify-content-center">
+            <a href="{% url 'diet:nutrients_creator' product_id diet_day_id %}" class="btn btn-green">Wartości
+              odżywcze</a>
+          </div>
         </div>
-  </form>
+      </form>
 
-  </div>
+    </div>
   </div>
 {% endblock content %}

@@ -279,4 +279,10 @@ html {
   max-width: 400px;
 }
 
+.green-shadow {
+  -webkit-box-shadow: 0px 0px 17px 0px #c4ff00;
+  -moz-box-shadow: 0px 0px 17px 0px #c4ff00;
+  box-shadow: 0px 0px 17px 0px #c4ff00;
+}
+
 /*# sourceMappingURL=base.css.map */

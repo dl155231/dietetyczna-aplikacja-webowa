@@ -7,9 +7,13 @@
         {% csrf_token %}
         <h1 class="my-5 text-center">Edycja zgłoszenia nr {{ object.id }}</h1>
         {{ form }}
-        <div class="d-flex justify-content-center mt-3">
-          <button type="submit" class="btn btn-green me-5">Zapisz</button>
-          <button type="button" class="btn btn-gray ms-5" onclick="window.history.back();">Anuluj</button>
+        <div class="row d-flex justify-content-center mt-3">
+          <div class="col-12 col-lg-4 mt-2 my-2 d-flex justify-content-center">
+            <button type="submit" class="btn btn-green">Zapisz</button>
+          </div>
+          <div class="col-12 col-lg-4 mt-2 my-2 d-flex justify-content-center">
+            <button type="button" class="btn btn-gray" onclick="window.history.back();">Anuluj</button>
+          </div>
         </div>
       </form>
     </div>
