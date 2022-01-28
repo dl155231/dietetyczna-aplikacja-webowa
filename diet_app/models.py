@@ -8,7 +8,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
 
-# 3rd-party
+# Project
 from diet_app.utils import present_or_future_date
 
 

@@ -2,7 +2,7 @@
 # Django
 from django.contrib import admin
 
-# 3rd-party
+# Project
 from diet_app.models import Client
 from diet_app.models import Consultations
 from diet_app.models import Diet

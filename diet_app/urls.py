@@ -2,14 +2,16 @@
 # Django
 from django.urls import path
 
-# 3rd-party
-from diet_app.views import AcceptedConsultationsListView, SorryPageView
+# Project
+from diet_app.views import AcceptedConsultationsListView
 from diet_app.views import ConsultationsCreateView
 from diet_app.views import ConsultationsListView
 from diet_app.views import ConsultationsUpdateView
 from diet_app.views import DietUserView
 from diet_app.views import NotificationListView
 from diet_app.views import ProductDetailView
+from diet_app.views import SorryPageView
+from diet_app.views import UserDetailsView
 from diet_app.views import diet_creator
 from diet_app.views import diet_creator_first
 from diet_app.views import diet_day_creator
@@ -44,4 +46,6 @@ urlpatterns = [
     path('consultations/list/', ConsultationsListView.as_view(), name='consultations_list'),  # noqa: E501
     path('consultations/edit/<pk>/', ConsultationsUpdateView.as_view(), name='consultations_edit'),  # noqa: E501
     path('consultations/accepted/list/', AcceptedConsultationsListView.as_view(), name='consultations_accepted_list'),  # noqa: E501
+    # path('user-details/', UserDetailsView.as_view(), name='user_details'),  # noqa: E501
+    path('user-details/<int:pk>/', UserDetailsView.as_view(), name='user_details'),  # noqa: E501
 ]
