@@ -229,7 +229,7 @@ class ConsultationsUpdateView(LoginRequiredMixin, UpdateView):  # noqa: D101
 
     def get_success_url(self):  # noqa: D102
         messages.success(self.request, 'Zmiany zapisane')
-        return reverse_lazy('diet:client_diet')
+        return reverse_lazy('diet:main_page_redirect')
 
     def get_form_kwargs(self):  # noqa: D102
         kwargs = super().get_form_kwargs()
