@@ -205,7 +205,11 @@ html {
 }
 
 #swap-color{
-  font-size: 15px;
+  font-size: 10px;
+  padding: 10px;
+}
+#bw-color{
+  font-size: 10px;
   padding: 10px;
 }
 
@@ -287,4 +291,8 @@ html {
   background-color: black;
   border: solid 2px greenyellow;
   border-radius: 20px;
+}
+
+.custom-div {
+  max-width: 400px;
 }
