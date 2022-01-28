@@ -149,6 +149,11 @@ html {
   }
   option {
     color: greenyellow!important;
+    background-color: black!important;
+  }
+  select:focus{
+    color: greenyellow!important;
+    background-color: black!important;
   }
   select:disabled{
     margin-bottom: 30px;

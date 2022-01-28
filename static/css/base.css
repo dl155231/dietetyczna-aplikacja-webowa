@@ -137,6 +137,11 @@ html {
 }
 .black-form option {
   color: greenyellow !important;
+  background-color: black !important;
+}
+.black-form select:focus {
+  color: greenyellow !important;
+  background-color: black !important;
 }
 .black-form select:disabled {
   margin-bottom: 30px;

@@ -30,9 +30,6 @@ class DietCreatorForm(forms.ModelForm):  # noqa: D101
         ).distinct('pk')
 
     def clean_nutritionist(self):  # noqa: D102
-        # nutritionist = self.cleaned_data.get('nutritionist')
-        # print(nutritionist)
-        # print(self.user.nutritionist)
         return self.user.nutritionist
 
     class Meta:  # noqa: D106
@@ -154,6 +151,14 @@ class ConsultationsForm(forms.ModelForm):  # noqa: D101
 
 
 class NutritionistConsultationsForm(forms.ModelForm):  # noqa: D101
+
+    def __init__(self, *args, **kwargs):  # noqa: D107
+        self.client = kwargs.pop('client', None)
+        super().__init__(*args, **kwargs)
+        self.fields['date'].initial = timezone.localdate()
+        self.fields['time'].initial = timezone.localtime().strftime('%H:%M')
+        self.fields['client'].initial = self.client
+
     class Meta:
         model = Consultations
         fields = ['date', 'time', 'client', 'nutritionist', 'is_accepted']
@@ -171,18 +176,11 @@ class NutritionistConsultationsForm(forms.ModelForm):  # noqa: D101
             'is_accepted': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
+    def clean_client(self):
+        return self.client
+
 
 class UserDetailsForm(forms.ModelForm):  # noqa: D101
-
-    # def __init__(self, *args, **kwargs):  # noqa: D107
-    #     user = kwargs.pop('user', None)
-    #
-    #     super().__init__(*args, **kwargs)
-    #     user_details = user.user_details
-    #     print(user_details)
-    #     for key, value in user_details.__dict__.items():
-    #         if key != '_state' and key != 'id':
-    #             self.fields[key].initial = value
 
     class Meta:
         model = UserDetails
