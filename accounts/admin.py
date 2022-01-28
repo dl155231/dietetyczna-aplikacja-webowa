@@ -25,6 +25,7 @@ class UserAdmin(admin.ModelAdmin):  # noqa: D101
              'email',
              'username',
              'password',
+             'user_details',
          )}),
         ('Ważne daty',
          {'fields': (

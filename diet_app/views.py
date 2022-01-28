@@ -10,22 +10,26 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.views.generic import FormView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
-# 3rd-party
-from diet_app.forms import ConsultationsForm, NutritionistConsultationsForm
+# Project
+from diet_app.forms import ConsultationsForm
 from diet_app.forms import DayDietForm
 from diet_app.forms import DayDietFormEdit
 from diet_app.forms import DietCreatorForm
 from diet_app.forms import NutrientsForm
+from diet_app.forms import NutritionistConsultationsForm
 from diet_app.forms import ProductForm
+from diet_app.forms import UserDetailsForm
 from diet_app.models import Consultations
 from diet_app.models import Diet
 from diet_app.models import DietDay
 from diet_app.models import Nutrients
 from diet_app.models import Product
+from diet_app.models import UserDetails
 
 
 class DietUserView(LoginRequiredMixin, TemplateView):
@@ -195,7 +199,8 @@ class ConsultationsListView(LoginRequiredMixin, ListView):
     model = Consultations
 
     def get_queryset(self):
-        return Consultations.objects.filter(nutritionist_id=self.request.user.nutritionist.id, is_accepted=False)
+        return Consultations.objects.filter(nutritionist_id=self.request.user.nutritionist.id,
+                                            is_accepted=False)
 
 
 class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
@@ -329,3 +334,19 @@ class SorryPageView(TemplateView):
     """Widok, który renderuje sorry page"""
 
     template_name = 'partials/sorry_page.html'
+
+
+class UserDetailsView(LoginRequiredMixin, UpdateView):
+    model = UserDetails
+    form_class = UserDetailsForm
+    template_name = 'user_details.html'
+    success_url = reverse_lazy('diet:client_diet')
+    #
+    # def get_form_kwargs(self):
+    #     kwargs = super().get_form_kwargs()
+    #     kwargs['user'] = self.request.user
+    #     return kwargs
+    #
+    # def form_valid(self, form):
+    #     self.request.user.user_details = form.save()
+    #     return super().form_valid(form)

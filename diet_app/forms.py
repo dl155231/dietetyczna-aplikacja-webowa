@@ -3,16 +3,15 @@
 from django import forms
 from django.utils import timezone
 
-# 3rd-party
+# Project
+from accounts.models import CustomUser
 from diet_app.models import Consultations
 from diet_app.models import Diet
 from diet_app.models import DietDay
 from diet_app.models import Nutrients
 from diet_app.models import Nutritionist
 from diet_app.models import Product
-
-# Project
-from accounts.models import CustomUser
+from diet_app.models import UserDetails
 
 
 class DietCreatorForm(forms.ModelForm):  # noqa: D101
@@ -171,3 +170,20 @@ class NutritionistConsultationsForm(forms.ModelForm):  # noqa: D101
                                                 }),
             'is_accepted': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
+
+
+class UserDetailsForm(forms.ModelForm):  # noqa: D101
+
+    # def __init__(self, *args, **kwargs):  # noqa: D107
+    #     user = kwargs.pop('user', None)
+    #
+    #     super().__init__(*args, **kwargs)
+    #     user_details = user.user_details
+    #     print(user_details)
+    #     for key, value in user_details.__dict__.items():
+    #         if key != '_state' and key != 'id':
+    #             self.fields[key].initial = value
+
+    class Meta:
+        model = UserDetails
+        exclude = ['id']

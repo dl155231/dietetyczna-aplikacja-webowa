@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# 3rd-party
+# Project
 from diet_app.models import Nutritionist
 from diet_app.models import UserDetails
 
@@ -12,7 +12,7 @@ from diet_app.models import UserDetails
 class CustomUser(AbstractUser):  # noqa: D101
     """Custom User class."""
 
-    user_details = models.ForeignKey(
+    user_details = models.OneToOneField(
         UserDetails,
         null=True,
         blank=True,
