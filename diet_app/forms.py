@@ -152,3 +152,22 @@ class ConsultationsForm(forms.ModelForm):  # noqa: D101
             'nutritionist': forms.Select(attrs={'class': 'form-control', 'required': 'required'}),
             'client': forms.HiddenInput(),
         }
+
+
+class NutritionistConsultationsForm(forms.ModelForm):  # noqa: D101
+    class Meta:
+        model = Consultations
+        fields = ['date', 'time', 'client', 'nutritionist', 'is_accepted']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+            'client': forms.Select(attrs={'class': 'form-control',
+                                          'required': 'required',
+                                          'disabled': 'disabled',
+                                          }),
+            'nutritionist': forms.Select(attrs={'class': 'form-control',
+                                                'required': 'required',
+                                                'disabled': 'disabled',
+                                                }),
+            'is_accepted': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }

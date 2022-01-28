@@ -15,7 +15,7 @@ from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
 # 3rd-party
-from diet_app.forms import ConsultationsForm
+from diet_app.forms import ConsultationsForm, NutritionistConsultationsForm
 from diet_app.forms import DayDietForm
 from diet_app.forms import DayDietFormEdit
 from diet_app.forms import DietCreatorForm
@@ -195,7 +195,7 @@ class ConsultationsListView(LoginRequiredMixin, ListView):
     model = Consultations
 
     def get_queryset(self):
-        return Consultations.objects.filter(nutritionist_id=self.request.user.nutritionist.id)
+        return Consultations.objects.filter(nutritionist_id=self.request.user.nutritionist.id, is_accepted=False)
 
 
 class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
@@ -221,7 +221,7 @@ class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
 class ConsultationsUpdateView(LoginRequiredMixin, UpdateView):  # noqa: D101
     template_name = 'consultations_edit.html'
     model = Consultations
-    form_class = ConsultationsForm
+    form_class = NutritionistConsultationsForm
 
     def get_success_url(self):  # noqa: D102
         messages.success(self.request, 'Zmiany zapisane')
