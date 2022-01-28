@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container-fluid h-100">
+    <div class="row h-100 w-100 d-flex justify-content-center align-items-center">
+      <div class="col 12  h-100 diet-main text-center mt-5">
+
+        <h1>Projekt na inżynierię oprogramowania</h1>
+        <h2 class="mb-5">Aplikacja dietetyczna</h2>
+        <h3 class="mb-2">Twórcy:</h3>
+        <p>Szef: Jolanta Kaźmierczak</p>
+        <p>Dominik Lewandowski</p>
+        <p>Mateusz Grabowski</p>
+        <p>Michał Kosiński</p>
+        <p>Mateusz Baran</p>
+        <h3 class="mt-5 mb-5">Użyte technologie i narzędzia:</h3>
+        <div class="logos-footer">
+          <img class="img-fluid mx-3 my-3" width="200px" height="100%"
+               src="{% static 'imgs/Python_logo_and_wordmark.svg.png' %}">
+          <img class="img-fluid mx-3 my-3" width="200px" height="100%"
+               src="{% static 'imgs/django-logo-negative.png' %}">
+          <img class="img-fluid mx-3 my-3" width="100px" height="100%" src="{% static 'imgs/Bootstrap_logo.svg.png' %}">
+          <img class="img-fluid mx-3 my-3" width="200px" height="100%" src="{% static 'imgs/sass.png' %}">
+          <img class="img-fluid mx-3 my-3" width="100px" height="100%"
+               src="{% static 'imgs/768px-HTML5_logo_and_wordmark.svg.png' %}">
+          <img class="img-fluid mx-3 my-3" width="100px" height="100%"
+               src="{% static 'imgs/1200px-Unofficial_JavaScript_logo_2.svg.png' %}">
+          <img class="img-fluid mx-3 my-3" width="200px" height="100%"
+               src="{% static 'imgs/2560px-JQuery-Logo.svg.png' %}">
+          <img class="img-fluid mx-3 my-3" width="100px" height="100%" src="{% static 'imgs/fontawesome.png' %}">
+          <img class="img-fluid mx-3 my-3" width="100px" height="100%"
+               src="{% static 'imgs/1200px-Postgresql_elephant.svg.png' %}">
+          <img class="img-fluid mx-3 my-3" width="200px" height="100%" src="{% static 'imgs/heroku.png' %}">
+          <img class="img-fluid mx-3 my-3" width="100px" height="100%" src="{% static 'imgs/GitHub-Mark.png' %}">
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock content %}

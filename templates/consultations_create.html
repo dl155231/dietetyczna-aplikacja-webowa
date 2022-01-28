@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% load bootstrap5 %}
+{% block content %}
+  <div class="container-fluid d-flex justify-content-center">
+    <div class="w-50 mt-5">
+      <form method="post" class="black-form mb-5">
+        {% csrf_token %}
+        <h1 class="my-5 text-center">Formularz umawiania konsultacji</h1>
+        {{ form }}
+        <div class="row d-flex justify-content-center mt-3">
+          <div class="col-12 col-lg-4 mt-2 my-2 d-flex justify-content-center">
+            <button type="submit" class="btn btn-green">Wyślij</button>
+          </div>
+          <div class="col-12 col-lg-4 mt-2 my-2 d-flex justify-content-center">
+            <a href="{% url 'diet:client_diet' %}" class="btn btn-gray">Anuluj</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

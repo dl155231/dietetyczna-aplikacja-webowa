@@ -1,12 +1,12 @@
-from diet_app.models import Nutritionist
+"""Diet utils."""
+# Standard Library
+import datetime
+
+# Django
+from django.core.exceptions import ValidationError
 
 
-def check_user(user):
-    is_client = True
-    if user.is_authenticated:
-        try:
-            if Nutritionist.objects.get(user=user):
-                is_client = False
-        except Nutritionist.DoesNotExist:
-            is_client = True
-    return is_client
+def present_or_future_date(value):  # noqa: 103
+    if value < datetime.date.today():
+        raise ValidationError('Data nie może być w przeszłości!')
+    return value

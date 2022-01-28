@@ -11,16 +11,21 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 # Standard Library
 import os
-import django_heroku
-
 from pathlib import Path
+
+# 3rd-party
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+
+
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
+
 # Application definition
 ALLOWED_HOSTS = ['*']
 
@@ -69,7 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'diet_app.context_processors.extra_content',
+                'diet_app.context_processors.extra_content',
             ],
         },
     },
@@ -124,6 +129,8 @@ TIME_ZONE = 'Europe/Warsaw'
 USE_I18N = True
 
 USE_TZ = True
+TIME_FORMAT = 'H:i'
+DATE_FORMAT = 'd-m-Y'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -152,11 +159,11 @@ LOGGING = {
             'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
                        'pathname=%(pathname)s lineno=%(lineno)s ' +
                        'funcname=%(funcName)s %(message)s'),
-            'datefmt': '%Y-%m-%d %H:%M:%S'
+            'datefmt': '%Y-%m-%d %H:%M:%S',
         },
         'simple': {
-            'format': '%(levelname)s %(message)s'
-        }
+            'format': '%(levelname)s %(message)s',
+        },
     },
     'handlers': {
         'null': {
@@ -166,15 +173,15 @@ LOGGING = {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
         'testlogger': {
             'handlers': ['console'],
             'level': 'INFO',
-        }
-    }
+        },
+    },
 }
 
 DEBUG_PROPAGATE_EXCEPTIONS = True
@@ -184,8 +191,8 @@ COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-LOGIN_REDIRECT_URL = 'diet:client_diet'
-LOGOUT_REDIRECT_URL = 'diet:client_diet'
+LOGIN_REDIRECT_URL = 'diet:main_page_redirect'
+LOGOUT_REDIRECT_URL = 'diet:main_page_redirect'
 ACCOUNT_SESSION_REMEMBER = False
 try:
     # Project

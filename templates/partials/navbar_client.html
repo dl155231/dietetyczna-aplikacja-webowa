@@ -1,10 +1,16 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark nav-border">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark nav-border green-shadow">
   <div class="container-fluid">
     <div class="navbar-brand d-flex" href="#">
-      <i class="fas fa-radiation-alt radioactive me-3" ></i>
+      <div class="me-3">
+        <i class="fas fa-radiation-alt radioactive rotating " ></i>
+      </div>
       <div class="left-brand">
         <p class="p-0 m-0">Delikwęt</p>
         <p class="small-brand">jedz zdrowo</p>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <button id="swap-color" class="btn btn-sm btn-orange ms-3"><i class="fas fa-fill-drip"></i></button>
+        <button id="bw-color" class="btn btn-sm btn-orange ms-2"><i class="fas fa-adjust"></i></button>
       </div>
     </div>
     <button class="navbar-toggler custom-btn-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,37 +21,47 @@
 
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
+            <i class="fas fa-info-circle"></i>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:client_diet'%}">Moja dieta</a>
+          </div>
+        </li>
+        <li class="nav-item me-3 d-flex align-items-center">
+          <div class="d-flex align-items-center">
             <i class="fas fa-tint"></i>
-            <a class="nav-link active ms-2" aria-current="page" href="#">Nawodnienie</a>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:sorry_page' %}">Nawodnienie</a>
           </div>
         </li>
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             <i class="far fa-calendar-alt"></i>
-            <a class="nav-link active ms-2" aria-current="page" href="#">Umów wizytę</a>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:consultations_create' %}">Umów wizytę</a>
           </div>
         </li>
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             <i class="fas fa-calculator"></i>
-            <a class="nav-link active ms-2" aria-current="page" href="#">Kalkulator kalorii</a>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:sorry_page' %}">Kalkulator kalorii</a>
           </div>
         </li>
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             <i class="fas fa-money-bill-wave"></i>
-            <a class="nav-link active ms-2" aria-current="page" href="#">Płatności</a>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:sorry_page' %}">Płatności</a>
           </div>
         </li>
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             <i class="fas fa-home"></i>
-            <a class="nav-link active ms-2" aria-current="page" href="#">Moje konto</a>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:sorry_page' %}">Moje konto</a>
           </div>
         </li>
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
-            <a href="{% url 'account_logout' %}"><i class="fas fa-power-off" style="font-size: 30px!important;"></i></a>
+            {% if user.is_authenticated %}
+              <a href="#" data-bs-target="#signout-modal" data-bs-toggle="modal" aria-current="page"><i class="fas fa-power-off" style="font-size: 30px!important;"></i></a>
+            {% else %}
+              <a href="{% url 'account_login' %}" ><i class="fas fa-sign-in-alt" style="font-size: 30px!important;"></i></a>
+            {% endif %}
           </div>
         </li>
 

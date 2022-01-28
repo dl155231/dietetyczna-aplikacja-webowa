@@ -1,19 +1,26 @@
 {% extends "index.html" %}
+{% load bootstrap5 %}
 {% block title %}{{ block.super }} | Wylogowywanie {% endblock %}
 
 {% block content %}
-  <div class="container justify-content-center content">
-      <h1>Wyloguj się</h1>
-      <p>Czy na pewno chcesz się wylogować?</p>
-
-      <form method="post" action="{% url 'account_logout' %}">
-        {% csrf_token %}
-        {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-        {% endif %}
-        <button type="submit" class="btn btn-primary">Wyloguj się</button>
-      </form>
+  <div class="container d-flex vh-100 align-items-center">
+    <div class="row justify-content-center w-100 h-100">
+      <div class="col-5">
+        <div class="modal-content justify-content-center align-items-center ">
+          <div class="modal-header w-100 justify-content-center bg-primary">
+            <h1 class="modal-title text-white">Wylogowywanie</h1>
+          </div>
+          <p>Czy na pewno chcesz się wylogować?</p>
+          <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}"
+                     value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Wyloguj się</button>
+          </form>
+        </div>
+      </div>
     </div>
-
-
+  </div>
 {% endblock %}

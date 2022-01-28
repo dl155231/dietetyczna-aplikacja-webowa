@@ -14,6 +14,7 @@ class UserAdmin(admin.ModelAdmin):  # noqa: D101
         'email',
         'username',
         'is_staff',
+
     )
 
     fieldsets = (
@@ -23,6 +24,7 @@ class UserAdmin(admin.ModelAdmin):  # noqa: D101
              'last_name',
              'email',
              'username',
+             'password',
          )}),
         ('Ważne daty',
          {'fields': (
@@ -31,10 +33,12 @@ class UserAdmin(admin.ModelAdmin):  # noqa: D101
          )}),
         ('Uprawnienia',
          {'fields': (
-             'is_active',
-             'is_staff',
              'is_superuser',
+             'is_staff',
+             'is_active',
+             'is_nutritionist',
              'groups',
              'user_permissions',
+             'nutritionist',
          )}),
     )

@@ -1,6 +1,5 @@
 """API models."""
-# Django
-# from django.contrib.auth import get_user_model
+
 # Standard Library
 from datetime import date
 
@@ -9,9 +8,33 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
 
-# from accounts.models import CustomUser
+# 3rd-party
+from diet_app.utils import present_or_future_date
 
-# User = get_user_model()
+
+class Nutritionist(models.Model):  # noqa: D101
+    bank_account = models.CharField(
+        verbose_name=_('Konto bankowe'),
+        max_length=255,
+    )
+
+    competence_proof = models.FileField(
+        upload_to='competence/',
+        verbose_name=_('Potwierdzenie kompetencji'),
+        null=True,  # tylko na potrzeby prezentacji projektu
+        blank=True,  # tylko na potrzeby prezentacji projektu
+    )
+
+    class Meta:  # noqa: D106
+        verbose_name = _('Dietetyk')
+        verbose_name_plural = _('Dietetycy')
+
+    def __str__(self):  # noqa: D105
+        try:
+            name = self.customuser.get_full_name()
+        except:  # noqa: E722
+            name = self.id
+        return str(name)
 
 
 class Diet(models.Model):  # noqa: D101
@@ -48,6 +71,14 @@ class Diet(models.Model):  # noqa: D101
         null=True,
     )
 
+    nutritionist = models.ForeignKey(
+        Nutritionist,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Dietetyk'),
+    )
+
     class Meta:  # noqa: D106
         verbose_name = _('Dieta')
         verbose_name_plural = _('Diety')
@@ -77,7 +108,7 @@ class DietDay(models.Model):  # noqa: D101
         verbose_name_plural = _('Dni diety')
 
     def __str__(self):  # noqa: D105
-        return str(self.day) + ' | ' + str(self.diet.name_diet)
+        return str(self.day)
 
 
 class Product(models.Model):  # noqa: D101
@@ -90,12 +121,12 @@ class Product(models.Model):  # noqa: D101
         verbose_name=_('Nazwa produktu'),
     )
 
-    diet = models.ForeignKey(
-        Diet,
+    diet_day = models.ForeignKey(
+        DietDay,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        verbose_name=_('Dieta'),
+        verbose_name=_('Dzień diety'),
     )
 
     class Meta:  # noqa: D106
@@ -103,25 +134,7 @@ class Product(models.Model):  # noqa: D101
         verbose_name_plural = _('Produkty')
 
     def __str__(self):  # noqa: D105
-        return str(self.product_name)
-
-
-class Vitamin(models.Model):  # noqa: D101
-    name = models.CharField(
-        max_length=255,
-        verbose_name=_('Nazwa'),
-    )
-
-    value = models.FloatField(
-        verbose_name=_('Ilość'),
-    )
-
-    class Meta:  # noqa: D106
-        verbose_name = _('Witamina')
-        verbose_name_plural = _('Witaminy')
-
-    def __str__(self):  # noqa: D105
-        return self.name
+        return str(self.product_name) + '|' + str(self.diet_day)
 
 
 class Nutrients(models.Model):  # noqa: D101
@@ -145,18 +158,17 @@ class Nutrients(models.Model):  # noqa: D101
         verbose_name=_('Cukry'),
     )
 
-    vitamins = models.ManyToManyField(
-        Vitamin,
-        blank=True,
-        default=None,
+    vitamins = models.TextField(
         verbose_name=_('Witaminy'),
+        null=True,
+        blank=True,
     )
 
     fibers = models.IntegerField(
         verbose_name=_('Błonnik'),
     )
 
-    product = models.ForeignKey(
+    product = models.OneToOneField(
         Product,
         null=True,
         blank=True,
@@ -169,51 +181,23 @@ class Nutrients(models.Model):  # noqa: D101
         verbose_name_plural = _('Wartości odżywcze')
 
     def __str__(self):  # noqa: D105
-        return self.product
+        return str(self.product)
 
 
 class Client(models.Model):  # noqa: D101
-    phone_number = models.CharField(max_length=20)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name=_('Klient'),
+    user = models.OneToOneField(
+        'accounts.CustomUser',
+        on_delete=models.CASCADE,
+        default=None,
     )
+    phone_number = models.CharField(max_length=20)
 
     class Meta:  # noqa: D106
         verbose_name = _('Klient')
         verbose_name_plural = _('Klienci')
 
     def __str__(self):  # noqa: D105
-        return self.user
-
-
-class Nutritionist(models.Model):  # noqa: D101
-    bank_account = models.IntegerField(
-        verbose_name=_('Konto bankowe'),
-    )
-
-    competence_proof = models.FileField(
-        upload_to='competence/',
-        verbose_name=_('Potwierdzenie kompetencji'),
-    )
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name=_('Użytkownik'),
-    )
-
-    class Meta:  # noqa: D106
-        verbose_name = _('Dietetyk')
-        verbose_name_plural = _('Dietetycy')
-
-    def __str__(self):  # noqa: D105
-        return self.user
+        return f'{self.user.get_full_name()}'
 
 
 class UserDetails(models.Model):  # noqa: D101
@@ -297,8 +281,13 @@ class WaterConsumption(models.Model):  # noqa: D101
 
 class Consultations(models.Model):  # noqa: D101
 
-    date = models.DateTimeField(
+    date = models.DateField(
         verbose_name=_('Data'),
+        validators=[present_or_future_date],
+    )
+
+    time = models.TimeField(
+        verbose_name=_('Godzina'),
     )
 
     client = models.ForeignKey(
@@ -317,9 +306,15 @@ class Consultations(models.Model):  # noqa: D101
         verbose_name=_('Dietetyk'),
     )
 
+    is_accepted = models.BooleanField(
+        _('Zaakceptowane'),
+        default=False,
+    )
+
     class Meta:  # noqa: D106
         verbose_name = _('Konsultacja')
         verbose_name_plural = _('Konsultacje')
+        ordering = ['-date']
 
     def __str__(self):  # noqa: D105
-        return self.client
+        return f'Zgłoszenie konsultacji nr {self.id}'
