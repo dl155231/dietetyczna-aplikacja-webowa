@@ -24,7 +24,7 @@ from diet_app.forms import NutrientsForm
 from diet_app.forms import NutritionistConsultationsForm
 from diet_app.forms import ProductForm
 from diet_app.forms import UserDetailsForm
-from diet_app.models import Consultations
+from diet_app.models import Consultations, Client
 from diet_app.models import Diet
 from diet_app.models import DietDay
 from diet_app.models import Nutrients
@@ -218,7 +218,6 @@ class ConsultationsCreateView(LoginRequiredMixin, CreateView):  # noqa: D101
         return kwargs
 
     def form_valid(self, form):  # noqa: D102
-        print(form.cleaned_data['client'])
         form.instance.client = form.cleaned_data['client']
         return super().form_valid(form)
 
@@ -231,6 +230,16 @@ class ConsultationsUpdateView(LoginRequiredMixin, UpdateView):  # noqa: D101
     def get_success_url(self):  # noqa: D102
         messages.success(self.request, 'Zmiany zapisane')
         return reverse_lazy('diet:client_diet')
+
+    def get_form_kwargs(self):  # noqa: D102
+        kwargs = super().get_form_kwargs()
+        kwargs['client'] = Consultations.objects.get(id=self.kwargs['pk']).client
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.nutritionist = self.request.user.nutritionist
+        form.instance.client.id = form.cleaned_data['client'].id
+        return super().form_valid(form)
 
 
 class AcceptedConsultationsListView(LoginRequiredMixin, ListView):
