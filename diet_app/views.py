@@ -340,13 +340,7 @@ class UserDetailsView(LoginRequiredMixin, UpdateView):
     model = UserDetails
     form_class = UserDetailsForm
     template_name = 'user_details.html'
-    success_url = reverse_lazy('diet:client_diet')
-    #
-    # def get_form_kwargs(self):
-    #     kwargs = super().get_form_kwargs()
-    #     kwargs['user'] = self.request.user
-    #     return kwargs
-    #
-    # def form_valid(self, form):
-    #     self.request.user.user_details = form.save()
-    #     return super().form_valid(form)
+
+    def get_success_url(self):
+        messages.success(self.request, 'Twoje dane zostały zaktualizowane.')
+        return reverse_lazy('diet:client_diet')
