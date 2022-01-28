@@ -17,7 +17,7 @@
         {% if products != None %}
           {% for product in products %}
             <a href="{% url 'diet:product_detail' product.id %}" class="diet-href">{{ product.product_name }}</a>
-            <p>{{ product.calories }}</p>
+            <p>{{ product.calories }} kcal</p>
           {% endfor %}
         {% else %}
           <p>Brak produktów</p>
