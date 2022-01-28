@@ -49,12 +49,14 @@
             <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:sorry_page' %}">Płatności</a>
           </div>
         </li>
+      {% if user.is_authenticated %}
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             <i class="fas fa-home"></i>
             <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:user_details' request.user.id %}">Moje konto</a>
           </div>
         </li>
+      {% endif %}
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             {% if user.is_authenticated %}

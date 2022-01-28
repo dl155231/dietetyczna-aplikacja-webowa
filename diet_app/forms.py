@@ -58,7 +58,7 @@ class DayDietForm(forms.ModelForm):  # noqa: D101
         day = self.cleaned_data.get('day')
         if DietDay.objects.filter(day=day, diet_id=self.diet.id).exists():
             raise forms.ValidationError('Ta data jest już zajęta!')
-        if day > self.diet.day_end or day < self.diet.day_end:
+        if day > self.diet.day_end or day < self.diet.day_zero:
             raise forms.ValidationError('Ta data nie jest z zakresu dni diety!')
         return day
 
