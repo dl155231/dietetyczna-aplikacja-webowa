@@ -135,9 +135,6 @@ html {
   -moz-appearance: none;
   appearance: none;
 }
-.black-form option {
-  color: greenyellow !important;
-}
 .black-form select:disabled {
   margin-bottom: 30px;
   border: 2px solid greenyellow;
