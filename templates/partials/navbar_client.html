@@ -28,7 +28,7 @@
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             <i class="fas fa-tint"></i>
-            <a class="nav-link active ms-2" aria-current="page" href="#">Nawodnienie</a>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:sorry_page' %}">Nawodnienie</a>
           </div>
         </li>
         <li class="nav-item me-3 d-flex align-items-center">
@@ -40,24 +40,28 @@
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             <i class="fas fa-calculator"></i>
-            <a class="nav-link active ms-2" aria-current="page" href="#">Kalkulator kalorii</a>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:sorry_page' %}">Kalkulator kalorii</a>
           </div>
         </li>
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             <i class="fas fa-money-bill-wave"></i>
-            <a class="nav-link active ms-2" aria-current="page" href="#">Płatności</a>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:sorry_page' %}">Płatności</a>
           </div>
         </li>
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
             <i class="fas fa-home"></i>
-            <a class="nav-link active ms-2" aria-current="page" href="#">Moje konto</a>
+            <a class="nav-link active ms-2" aria-current="page" href="{% url 'diet:sorry_page' %}">Moje konto</a>
           </div>
         </li>
         <li class="nav-item me-3 d-flex align-items-center">
           <div class="d-flex align-items-center">
-            <a href="#" data-bs-target="#signout-modal" data-bs-toggle="modal" aria-current="page"><i class="fas fa-power-off" style="font-size: 30px!important;"></i></a>
+            {% if user.is_authenticated %}
+              <a href="#" data-bs-target="#signout-modal" data-bs-toggle="modal" aria-current="page"><i class="fas fa-power-off" style="font-size: 30px!important;"></i></a>
+            {% else %}
+              <a href="{% url 'account_login' %}" ><i class="fas fa-sign-in-alt" style="font-size: 30px!important;"></i></a>
+            {% endif %}
           </div>
         </li>
 

@@ -102,6 +102,9 @@ html {
   background-color: black !important;
   color: greenyellow !important;
 }
+.black-form input svg {
+  color: greenyellow;
+}
 .black-form textarea {
   background-color: black;
   border: solid 2px greenyellow;
@@ -131,6 +134,14 @@ html {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+.black-form select:disabled {
+  margin-bottom: 30px;
+  border: 2px solid greenyellow;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: #3b3b3b !important;
+  color: greenyellow !important;
 }
 
 .btn-blue {

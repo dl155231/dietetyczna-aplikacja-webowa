@@ -3,7 +3,7 @@
 from django.urls import path
 
 # 3rd-party
-from diet_app.views import AcceptedConsultationsListView
+from diet_app.views import AcceptedConsultationsListView, SorryPageView
 from diet_app.views import ConsultationsCreateView
 from diet_app.views import ConsultationsListView
 from diet_app.views import ConsultationsUpdateView
@@ -26,6 +26,7 @@ app_name = 'diet'
 urlpatterns = [
     path('', main_page_redirect, name='main_page_redirect'),  # noqa: E501
     path('home/', DietUserView.as_view(), name='client_diet'),  # noqa: E501
+    path('sorry-page/', SorryPageView.as_view(), name='sorry_page'),  # noqa: E501
     path('notification-list/', NotificationListView.as_view(), name='notification_list'),  # noqa: E501
     path('diet-list/<nut_id>/', diet_list, name='diet_list'),  # noqa: E501
     path('diet-creator-first/', diet_creator_first, name='diet_creator_first'),  # noqa: E501

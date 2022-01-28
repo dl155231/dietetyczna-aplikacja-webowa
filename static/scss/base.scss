@@ -111,6 +111,9 @@ html {
     border-radius: 20px;
     background-color: black !important;
     color: greenyellow !important;
+    svg{
+      color: greenyellow;
+    }
   }
 
   textarea {
@@ -143,6 +146,14 @@ html {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none
+  }
+  select:disabled{
+    margin-bottom: 30px;
+    border: 2px solid greenyellow;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #3b3b3b !important;
+    color: greenyellow !important;
   }
 }
 

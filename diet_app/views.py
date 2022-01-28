@@ -323,3 +323,9 @@ class ProductDetailView(TemplateView):
             nutrients = None
         context['nutrients'] = nutrients
         return context
+
+
+class SorryPageView(TemplateView):
+    """Widok, który renderuje sorry page"""
+
+    template_name = 'partials/sorry_page.html'
